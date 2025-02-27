@@ -1,0 +1,12 @@
+.DS_Store
+uploads/**/*.png
+uploads/**/*.jpg
+uploads/**/*.jpeg
+uploads/**/*.gif
+uploads/**/*.svg
+
+logo-img/**/*.png
+logo-img/**/*.jpg
+logo-img/**/*.jpeg
+logo-img/**/*.gif
+logo-img/**/*.svg
