@@ -138,7 +138,7 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
     <?php include("../css.php") ?>
 </head>
 
-<body class="g-sidenav-show overflow-hidden" >
+<body class="g-sidenav-show" >
     <!-- aside -->
     <?php include("../aside.php") ?>
 

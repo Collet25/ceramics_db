@@ -84,13 +84,13 @@
                 <div class="collapse" id="teacherMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../teachers/teacher-list.php">新增師資</a>
+                            <a class="nav-link text-center" href="../teachers/teacher-list.php">師資列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../teachers/teacher-list.php">修改師資</a>
+                            <a class="nav-link" href="../teachers/teacher-list.php">新增師資</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../teachers/teacher-list.php">刪除師資</a>
+                            <a class="nav-link" href="../teachers/teacher-list.php">已刪除師資</a>
                         </li>
                     </ul>
                 </div>
@@ -135,10 +135,10 @@
                 <div class="collapse" id="couponMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../coupons/coupon-list.php">優惠券列表</a>
+                            <a class="nav-link text-center" href="../coupons/coupon.php">優惠券列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../coupons/coupon-creacte.php">新增優惠券</a>
+                            <a class="nav-link" href="../coupons/create-coupon.php">新增優惠券</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../coupons/coupon-list.php">刪除優惠券</a>
