@@ -27,10 +27,10 @@
                 <div class="collapse" id="memberMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="users.php">會員列表</a>
+                            <a class="nav-link text-center" href="../user/users.php">會員列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="frozenUsers.php">帳號凍結</a>
+                            <a class="nav-link" href="../user/frozenUsers.php">帳號凍結</a>
                         </li>
                     </ul>
                 </div>
@@ -107,15 +107,15 @@
                 <!-- 商品下拉選單 -->
                 <div class="collapse" id="productMenu">
                     <ul class="navbar-nav ms-3">
-                        <!-- <li class="nav-item">
-                            <a class="nav-link text-center" href="../products/product-view.php">檢視商品</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link text-center" href="../products/product-list.php">商品列表</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../products/product-create.php">新增商品</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="../products/product-edit.php">修改商品</a>
-                        </li>    -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="../products/product-trash.php">已刪除商品</a>
+                        </li>   
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../products/product-delete.php">刪除商品</a>
                         </li> -->
@@ -135,14 +135,14 @@
                 <div class="collapse" id="couponMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../coupons/coupon-list.php">新增優惠券</a>
+                            <a class="nav-link text-center" href="../coupons/coupon-list.php">優惠券列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../coupons/coupon-list.php">修改優惠券</a>
+                            <a class="nav-link" href="../coupons/coupon-creacte.php">新增優惠券</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="../coupons/coupon-list.php">刪除優惠券</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>  
             </li>
@@ -152,7 +152,7 @@
     <!-- 登出區域 -->
     <div class="sidenav-footer position-absolute w-100 bottom-0">
         <div class="mx-3">
-            <a class="btn btn-primary mt-4 w-100" href="../logout.php" type="button">
+            <a class="btn btn-primary mt-4 w-100" href="../user/sign-in.php" type="button">
                 <i class="fas fa-sign-out-alt me-2"></i> 登出
             </a>
         </div>
