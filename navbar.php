@@ -7,7 +7,37 @@
               <!-- <img src="../logo-img/logo-nav.png" alt="" class="logo-nav">   -->
               『國立故瓷博物館』後台系統
             </a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">商品管理</li>
+
+            
+            <?php
+            // 獲取當前頁面
+            $currentPage = basename($_SERVER['PHP_SELF']);
+            
+            // 定義頁面對應的標題
+            $pageTitles = [
+                'users.php' => '會員管理',
+                'frozenUsers.php' => '會員管理',
+
+                'exhibition-list.php' => '展覽管理',
+                'venue-list.php' => '場地管理',
+
+                'teacher-list.php' => '師資管理',
+
+                'product-list.php' => '商品管理',
+                'product-create.php' => '商品管理',
+                'product-trash.php' => '商品管理',
+                
+                'coupon.php' => '優惠券管理',
+                'create-coupon.php' => '優惠券管理',
+                
+            ];
+            
+            // 獲取當前頁面標題
+            $pageTitle = isset($pageTitles[$currentPage]) ? $pageTitles[$currentPage] : '首頁';
+            ?>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
+              <?= $pageTitle ?>
+            </li>
           </ol>
           <!-- <h6 class="font-weight-bold mb-0">商品管理</h6> -->
         </nav>

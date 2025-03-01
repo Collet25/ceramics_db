@@ -13,6 +13,31 @@
 
     <!-- 選單區域 -->
     <div class="collapse navbar-collapse w-auto ms-4" id="sidenav-collapse-main">
+        <?php
+        // 獲取當前頁面
+        $currentPage = basename($_SERVER['PHP_SELF']);
+        $currentDir = dirname($_SERVER['PHP_SELF']);
+        
+        // 定義頁面與選單的對應關係
+        $menuActiveMap = [
+            'users.php' => 'memberMenu',
+            'frozenUsers.php' => 'memberMenu',
+
+            'exhibition-list.php' => 'exhibitionMenu',
+
+            'teacher-list.php' => 'teacherMenu',
+
+            'product-list.php' => 'productMenu',
+            'product-create.php' => 'productMenu',
+            'product-trash.php' => 'productMenu',
+
+            'coupon.php' => 'couponMenu',
+            'create-coupon.php' => 'couponMenu',
+        ];
+        
+        // 获取当前页面对应的菜单ID
+        $activeMenu = isset($menuActiveMap[$currentPage]) ? $menuActiveMap[$currentPage] : '';
+        ?>
         <ul class="navbar-nav">
             <!-- 會員管理 (可展開) -->
             <li class="nav-item">
@@ -24,13 +49,15 @@
                 </a>
 
                 <!-- 會員下拉選單 -->
-                <div class="collapse" id="memberMenu">
+                <div class="collapse <?= ($activeMenu === 'memberMenu') ? 'show' : '' ?>" id="memberMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../user/users.php">會員列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'users.php') ? 'active' : '' ?>" 
+                               href="../user/users.php">會員列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../user/frozenUsers.php">帳號凍結</a>
+                            <a class="nav-link <?= ($currentPage === 'frozenUsers.php') ? 'active' : '' ?>" 
+                               href="../user/frozenUsers.php">帳號凍結</a>
                         </li>
                     </ul>
                 </div>
@@ -64,12 +91,27 @@
 
             <!-- 場地管理 -->
             <li class="nav-item">
-                <a class="nav-link" href="../exhibitions/exhibition-list.php">
+                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#venueMenu" role="button" aria-expanded="false" aria-controls="venueMenu">
                     <div class="icon-wrapper me-2">
                         <i class="bi bi-pin-map-fill"></i>
                     </div>
                     <span class="nav-link-text">場地管理</span>
                 </a>
+
+                <!-- 場地下拉選單 -->
+                <div class="collapse" id="venueMenu">
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-center" href="../venues/venue-list.php">場地列表</a>
+                        </li>   
+                        <li class="nav-item">
+                            <a class="nav-link" href="../venues/venue-list.php">新增場地</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../venues/venue-list.php">已刪除場地</a>
+                        </li>
+                    </ul>
+                </div>  
             </li>
 
             <li class="nav-item">
@@ -90,7 +132,7 @@
                             <a class="nav-link" href="../teachers/teacher-list.php">新增師資</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../teachers/teacher-list.php">已刪除師資</a>
+                            <a class="nav-link" href="../teachers/teacher-list.php">停權師資</a>
                         </li>
                     </ul>
                 </div>
@@ -105,16 +147,19 @@
                 </a>
 
                 <!-- 商品下拉選單 -->
-                <div class="collapse" id="productMenu">
+                <div class="collapse <?= ($activeMenu === 'productMenu') ? 'show' : '' ?>" id="productMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../products/product-list.php">商品列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'product-list.php') ? 'active' : '' ?>" 
+                               href="../products/product-list.php">商品列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../products/product-create.php">新增商品</a>
+                            <a class="nav-link <?= ($currentPage === 'product-create.php') ? 'active' : '' ?>" 
+                               href="../products/product-create.php">新增商品</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../products/product-trash.php">已刪除商品</a>
+                            <a class="nav-link <?= ($currentPage === 'product-trash.php') ? 'active' : '' ?>" 
+                               href="../products/product-trash.php">已刪除商品</a>
                         </li>   
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../products/product-delete.php">刪除商品</a>
@@ -132,13 +177,15 @@
                 </a>
 
                 <!-- 優惠券下拉選單 -->
-                <div class="collapse" id="couponMenu">
+                <div class="collapse <?= ($activeMenu === 'couponMenu') ? 'show' : '' ?>" id="couponMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../coupons/coupon.php">優惠券列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'coupon.php') ? 'active' : '' ?>" 
+                               href="../coupons/coupon.php">優惠券列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../coupons/create-coupon.php">新增優惠券</a>
+                            <a class="nav-link <?= ($currentPage === 'create-coupon.php') ? 'active' : '' ?>" 
+                               href="../coupons/create-coupon.php">新增優惠券</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../coupons/coupon-list.php">刪除優惠券</a>
