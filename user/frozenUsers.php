@@ -11,7 +11,8 @@ if (isset($_GET["q"])) {
         header("Location: frozenUsers.php?p=1");
         exit;
     }
-    $sql = "SELECT * FROM users WHERE name LIKE '%$q%' OR account LIKE '%$q%' OR email LIKE '%$q%' OR frozen LIKE '%$q%'";
+    $sql = "SELECT * FROM users WHERE valid=1 AND (name LIKE '%$q%' OR account LIKE '%$q%' OR email LIKE '%$q%' OR frozen LIKE '%$q%')";
+
 } else if (isset($_GET["p"]) && isset($_GET["order"])) {
 
     $p = $_GET["p"];
@@ -65,11 +66,14 @@ if (isset($_GET["q"])) {
     <?php include("../css.php") ?>
 
     <style>
-        
         .custom-row th {
-  background-color: rgb(16, 108, 105) !important;
-  color: white !important;
-}
+            background-color: #9A3412 !important;
+            color: white !important;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
     </style>
 
 </head>
@@ -82,34 +86,22 @@ if (isset($_GET["q"])) {
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
 
-        <!-- users -->
-        <div class="container-fluid py-4">
+        <!-- frozenUsers -->
+        <div class="container-fluid py-2">
 
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-12">
-                    <div class="card border-0 mb-4 mx-4 p-3">
+                <div class="d-flex align-items-center mx-4 p-2">
+                        <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
 
-                        <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
-                            <div class="modal-dialog modal-md">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="">系統資訊</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        確定恢復該會員資格?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a role="button" class="btn btn-danger" href="recoverUser.php?id=<?= $row["id"] ?>">確定</a>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">取消</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <h2>停權會員列表</h2>
                         </div>
+                    </div>
+                    <div class="mb-4 p-3">
 
-                        <div class="container">
-
-                            <div class="py-3 row d-flex justify-content-between align-items-center">
+                        <div class="container-fluid">
+                            <div class="py-2 row d-flex justify-content-between align-items-center">
                                 <div class="col-md-6">
                                     <a class="btn btn-primary" href="frozenUsers.php"><i class="fa-solid fa-circle-arrow-left me-2"></i>返回停權列表</a>
                                 </div>
@@ -134,12 +126,12 @@ if (isset($_GET["q"])) {
 
 
 
-                            <div class="py-3 justify-content-between align-items-center">
+                            <div class="py-2">
                                 <div class="row justify-content-center align-items-center">
 
-                                    <div class="col-12 ">
-                                        <div class="row d-flex justify-content-start align-items-center">
-                                            <div class="col-auto">
+                                    <!-- <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-end">
                                                 <?php if (isset($_GET["p"])): ?>
                                                     <nav aria-label="Page navigation example">
                                                         <ul class="pagination me-0">
@@ -164,17 +156,79 @@ if (isset($_GET["q"])) {
                                                     </nav>
                                                 <?php endif ?>
                                             </div>
-                                            <div class="col-auto">
+                                            <div class="col-auto py-3 d-flex align-items-end">
                                                 共 <?= $userCount ?> 名被停權
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-end">
+                                                <?php if (isset($_GET["p"])): ?>
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination me-0">
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="frozenUsers.php?p=1" aria-label="Previous">
+                                                                    <span aria-hidden="true"><i class="fa-solid fa-caret-left"></i></span>
+                                                                </a>
+                                                            </li>
+
+                                                            <?php
+                                                            // 獲取當前頁面和總頁數
+                                                            $currentPage = $_GET["p"];
+                                                            $totalPage = $totalPage;  // 假設 $totalPage 已經定義
+
+                                                            // 計算顯示頁面範圍（最多顯示 5 頁）
+                                                            $startPage = max(1, $currentPage - 2);  // 顯示當前頁之前的頁面
+                                                            $endPage = min($totalPage, $currentPage + 2);  // 顯示當前頁之後的頁面
+
+                                                            // 如果顯示的頁面少於 5 頁，調整顯示範圍
+                                                            if ($currentPage <= 3) {
+                                                                $endPage = min(5, $totalPage);  // 如果在開始處，顯示更多的頁面
+                                                            } elseif ($currentPage >= $totalPage - 2) {
+                                                                $startPage = max($totalPage - 4, 1);  // 如果在結尾處，顯示更多前面的頁面
+                                                            }
+
+                                                            // 顯示頁碼
+                                                            for ($i = $startPage; $i <= $endPage; $i++):
+                                                                $active = ($i == $currentPage) ? "active" : "";
+                                                            ?>
+                                                                <li class="page-item <?= $active ?>"><a class="page-link" href="frozenUsers.php?p=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                                                            <?php endfor; ?>
+
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="frozenUsers.php?p=<?= $totalPage ?>&order=<?= $order ?>" aria-label="Next">
+                                                                    <span aria-hidden="true"><i class="fa-solid fa-caret-right"></i></span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                <?php endif ?>
+                                            </div>
+                                            <div class="col-auto py-3 d-flex align-items-end">
+                                                共 <?= $userCount ?> 名停權會員
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 d-flex justify-content-end">
+                                        <div class="btn-group">
+                                            <div class="dropdown me-2">
+                                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="fw-bold"><i class="fa-solid fa-filter me-2"></i>排序</span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <li><a class="dropdown-item" <?php if ($order == 1) echo "active" ?>" href="frozenUsers.php?p=<?= $p ?>&order=1">ID 由小到大</a></li>
+                                                    <li><a class="dropdown-item" <?php if ($order == 2) echo "active" ?>" href="frozenUsers.php?p=<?= $p ?>&order=2">ID 由大到小</a></li>
+                                                    <li><a class="dropdown-item" <?php if ($order == 3) echo "active" ?>" href="frozenUsers.php?p=<?= $p ?>&order=3">帳號 A → Z</a></li>
+                                                    <li><a class="dropdown-item" <?php if ($order == 4) echo "active" ?>" href="frozenUsers.php?p=<?= $p ?>&order=4">帳號 Z → A</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
 
-
-
-                                    
-
-                                </div>
+                              </div>
                             </div>
 
 

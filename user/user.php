@@ -25,25 +25,39 @@ $userCount = $result->num_rows;
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <?php include("../css.php") ?>
+    <style>
+        .user-table {
+            border-radius: 0;
+            /* border:none; */
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show">
+    <!-- aside -->
     <?php include("../aside.php") ?>
 
     <main class="main-content position-relative max-height-vh-100 h-100  ">
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
-        <!-- End Navbar -->
-        <div class="container-fluid py-4">
-        
+
+        <!-- user -->
+        <div class="container py-2">
+
             <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card border shadow-xs mb-4 mx-4 p-3">
+                <div class="col-8">
+                    <div class="d-flex align-items-center mb-4 mx-4 p-2">
+                        <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
+                        
+                       <div><h2>會員資料</h2></div>
+                    </div>
+                    <div class="card mb-4 mx-4 p-3">
                         <div class="container">
-                            <div class="row d-flex justify-content-center py-3">
-                                <div class="col-md-8 col-sm-6">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-12">
                                     <?php if ($userCount > 0): ?>
-                                        <table class="table table-bordered  mt-4 mb-5">
+                                        <table class="user-table table align-middle">
                                             <tr>
                                                 <th>ID</th>
                                                 <td><?= $row["id"] ?></td>
@@ -98,6 +112,10 @@ $userCount = $result->num_rows;
         </div>
         </div>
         </div>
+
+        <!-- 頁尾 -->
+        <?php include("../footer.php"); ?>
+
     </main>
 
     <?php include("../js.php") ?>

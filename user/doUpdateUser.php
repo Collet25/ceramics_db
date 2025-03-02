@@ -9,8 +9,10 @@ $id = $_POST["id"];
 $name = $_POST["name"];
 $phone = $_POST["phone"];
 $email = $_POST["email"];
+$gender=$_POST["gender"];
+$birth = date("Y-m-d", strtotime($_POST["birth"]));
 
-$sql = "UPDATE users SET name='$name',phone='$phone', email='$email' WHERE id='$id'";
+$sql = "UPDATE users SET name='$name', phone='$phone', email='$email', gender='$gender', birth='$birth' WHERE id='$id'";
 echo $sql;
 
 if ($conn->query($sql) === TRUE) {
