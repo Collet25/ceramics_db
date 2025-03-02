@@ -24,8 +24,15 @@
             'frozenUsers.php' => 'memberMenu',
 
             'exhibition-list.php' => 'exhibitionMenu',
+            'exhibition-create.php' => 'exhibitionMenu',
 
-            'teacher-list.php' => 'teacherMenu',
+            'venue-list.php' => 'venueMenu',
+            'venue-create.php' => 'venueMenu',
+            'booking-list.php' => 'venueMenu',
+
+            'instructors.php' => 'teacherMenu',
+            'instructor-up.php' => 'teacherMenu',
+            'delete-instructors.php' => 'teacherMenu',
 
             'product-list.php' => 'productMenu',
             'product-create.php' => 'productMenu',
@@ -74,17 +81,17 @@
                 </a>
 
                 <!-- 展覽下拉選單 -->
-                <div class="collapse" id="exhibitionMenu">
+                <div class="collapse <?= ($activeMenu === 'exhibitionMenu') ? 'show' : '' ?>" id="exhibitionMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../exhibitions/exhibition-list.php">新增展覽</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-list.php') ? 'active' : '' ?>" href="../exhibition/exhibition-list.php">展覽列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../exhibitions/exhibition-list.php">修改展覽</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-create.php') ? 'active' : '' ?>" href="../exhibition/exhibition-create.php">新增展覽</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="../exhibitions/exhibition-list.php">刪除展覽</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </li>
@@ -99,17 +106,17 @@
                 </a>
 
                 <!-- 場地下拉選單 -->
-                <div class="collapse" id="venueMenu">
+                <div class="collapse <?= ($activeMenu === 'venueMenu') ? 'show' : '' ?>" id="venueMenu">
                     <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                            <a class="nav-link text-center <?= ($currentPage === 'venue-list.php') ? 'active' : '' ?>" href="../venue/venue-list.php">場地列表</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../venues/venue-list.php">場地列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'venue-create.php') ? 'active' : '' ?>" href="../venue/venue-create.php">新增場地</a>
+                        </li>                       
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage === 'booking-list.php') ? 'active' : '' ?>" href="../venue/booking-list.php">預約清單</a>
                         </li>   
-                        <li class="nav-item">
-                            <a class="nav-link" href="../venues/venue-list.php">新增場地</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../venues/venue-list.php">已刪除場地</a>
-                        </li>
                     </ul>
                 </div>  
             </li>
@@ -123,16 +130,19 @@
                 </a>
 
                 <!-- 師資下拉選單 -->
-                <div class="collapse" id="teacherMenu">
+                <div class="collapse <?= ($activeMenu === 'teacherMenu') ? 'show' : '' ?>" id="teacherMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center" href="../teachers/teacher-list.php">師資列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'instructors.php') ? 'active' : '' ?>" 
+                               href="../instructor/instructors.php">師資列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../teachers/teacher-list.php">新增師資</a>
+                            <a class="nav-link <?= ($currentPage === 'instructor-up.php') ? 'active' : '' ?>" 
+                               href="../instructor/instructor-up.php">新增師資</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../teachers/teacher-list.php">停權師資</a>
+                            <a class="nav-link <?= ($currentPage === 'delete-instructors.php') ? 'active' : '' ?>" 
+                               href="../instructor/delete-instructors.php">停權師資</a>
                         </li>
                     </ul>
                 </div>

@@ -1,5 +1,5 @@
 <!-- 頁尾 -->
-<footer class="footer pt-3">
+<footer class="footer">
     <div class="container-fluid">
         <div class="row justify-content-center text-center">
             <!-- Logo -->
@@ -21,10 +21,11 @@
 <style>
 /* Footer 基本樣式 */
 .footer {
-    padding: 1.5rem 2rem;
+    padding: 2rem 2rem;
     background-color: var(--main-bg);  /* 使用主背景色 */
     /*border-top: 1px solid var(--sub-bg);*/  /* 加入上邊框 */
-    margin-top: auto;  /* 確保 footer 在底部 */
+    margin-top: auto;
+    text-align: center;
 }
 
 /* 版權文字 */

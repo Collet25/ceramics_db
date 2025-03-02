@@ -134,6 +134,11 @@ $product = $result->fetch_assoc();
             font-weight: bold;
             margin: 0;
         }
+
+        /* .products-view {
+            margin-top: -1rem;
+        } */
+
     </style>
 
 </head>
@@ -155,8 +160,8 @@ $product = $result->fetch_assoc();
 
 
         <!-- **********商品列表********* -->
-        <div class="container-fluid py-4">
-            `<div class="row">
+        <div class="container-fluid py-4 products-view">
+            <div class="row">
                 <div class="col-12">
                     <div class="mb-4">
 

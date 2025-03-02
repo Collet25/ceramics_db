@@ -109,4 +109,14 @@ body {
     border-color: var(--primary);
     box-shadow: 0 0 0 0.25rem rgba(123, 45, 18, 0.25);
 }
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 35px); /* 讓 main 至少跟視窗一樣高 */
+}
+
+.container-fluid {
+    flex: 1; /* 讓內容區域可以撐開 main，使 footer 黏在底部 */
+}
 </style>

@@ -21,12 +21,14 @@
                 'exhibition-list.php' => '展覽管理',
                 'venue-list.php' => '場地管理',
 
-                'teacher-list.php' => '師資管理',
+                'instructors.php' => '師資管理',
+                'instructor-up.php' => '師資管理',
+                'delete-instructors.php' => '師資管理',
 
                 'product-list.php' => '商品管理',
                 'product-create.php' => '商品管理',
                 'product-trash.php' => '商品管理',
-                
+
                 'coupon.php' => '優惠券管理',
                 'create-coupon.php' => '優惠券管理',
                 
