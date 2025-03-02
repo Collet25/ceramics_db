@@ -70,8 +70,20 @@ if (isset($_GET["q"])) {
 
     <style>
         .custom-row th {
-            background-color: rgb(16, 108, 105) !important;
+            background-color: #9A3412 !important;
             color: white !important;
+        }
+
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-body {
+            max-height: 100px;
+            /* 設定最大高度 */
+            overflow-y: auto;
+            /* 允許滾動 */
         }
     </style>
 
@@ -86,16 +98,21 @@ if (isset($_GET["q"])) {
         <?php include("../navbar.php") ?>
 
         <!-- users -->
-        <div class="container-fluid py-4">
+        <div class="container-fluid py-2">
 
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-12">
-                    <div class="card border-0 mb-4 mx-4 p-3">
+                    <div class="d-flex align-items-center mx-4 p-2">
+                        <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
 
+                        <div>
+                            <h2>會員列表</h2>
+                        </div>
+                    </div>
+                    <div class="mb-4 p-3">
 
-                        <div class="container">
-
-                            <div class="py-3 row d-flex justify-content-between align-items-center">
+                        <div class="container-fluid">
+                            <div class="py-2 row d-flex justify-content-between align-items-center">
                                 <div class="col-md-6">
                                     <a class="btn btn-primary" href="users.php"><i class="fa-solid fa-circle-arrow-left me-2"></i>返回會員列表</a>
                                 </div>
@@ -120,12 +137,12 @@ if (isset($_GET["q"])) {
 
 
 
-                            <div class="py-3 justify-content-between align-items-center">
+                            <div class="py-2">
                                 <div class="row justify-content-center align-items-center">
 
-                                    <div class="col-md-6">
-                                        <div class="row d-flex justify-content-start align-items-center">
-                                            <div class="col-auto">
+                                    <!-- <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-end">
                                                 <?php if (isset($_GET["p"])): ?>
                                                     <nav aria-label="Page navigation example">
                                                         <ul class="pagination me-0">
@@ -150,15 +167,63 @@ if (isset($_GET["q"])) {
                                                     </nav>
                                                 <?php endif ?>
                                             </div>
-                                            <div class="col-auto">
+                                            <div class="col-auto py-3 d-flex align-items-end">
+                                                共 <?= $userCount ?> 名會員
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-end">
+                                                <?php if (isset($_GET["p"])): ?>
+                                                    <nav aria-label="Page navigation example">
+                                                        <ul class="pagination me-0">
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="users.php?p=1" aria-label="Previous">
+                                                                    <span aria-hidden="true"><i class="fa-solid fa-caret-left"></i></span>
+                                                                </a>
+                                                            </li>
+
+                                                            <?php
+                                                            // 獲取當前頁面和總頁數
+                                                            $currentPage = $_GET["p"];
+                                                            $totalPage = $totalPage;  // 假設 $totalPage 已經定義
+
+                                                            // 計算顯示頁面範圍（最多顯示 5 頁）
+                                                            $startPage = max(1, $currentPage - 2);  // 顯示當前頁之前的頁面
+                                                            $endPage = min($totalPage, $currentPage + 2);  // 顯示當前頁之後的頁面
+
+                                                            // 如果顯示的頁面少於 5 頁，調整顯示範圍
+                                                            if ($currentPage <= 3) {
+                                                                $endPage = min(5, $totalPage);  // 如果在開始處，顯示更多的頁面
+                                                            } elseif ($currentPage >= $totalPage - 2) {
+                                                                $startPage = max($totalPage - 4, 1);  // 如果在結尾處，顯示更多前面的頁面
+                                                            }
+
+                                                            // 顯示頁碼
+                                                            for ($i = $startPage; $i <= $endPage; $i++):
+                                                                $active = ($i == $currentPage) ? "active" : "";
+                                                            ?>
+                                                                <li class="page-item <?= $active ?>"><a class="page-link" href="users.php?p=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                                                            <?php endfor; ?>
+
+                                                            <li class="page-item">
+                                                                <a class="page-link" href="users.php?p=<?= $totalPage ?>&order=<?= $order ?>" aria-label="Next">
+                                                                    <span aria-hidden="true"><i class="fa-solid fa-caret-right"></i></span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                <?php endif ?>
+                                            </div>
+                                            <div class="col-auto py-3 d-flex align-items-end">
                                                 共 <?= $userCount ?> 名會員
                                             </div>
                                         </div>
                                     </div>
 
-
-
-                                    <div class="col-md-6 d-flex justify-content-end">
+                                    <div class="col-md-4 d-flex justify-content-end">
                                         <div class="btn-group">
                                             <div class="dropdown me-2">
                                                 <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

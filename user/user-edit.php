@@ -26,22 +26,45 @@ $userCount = $result->num_rows;
         content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <?php include("../css.php") ?>
+    <style>
+        .user-table {
+            border-radius: 0;
+            /* border:none; */
+            box-shadow: none;
+        }
+
+        .modal-body {
+            max-height: 100px;
+            /* 設定最大高度 */
+            overflow-y: auto;
+            /* 允許滾動 */
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show">
     <?php include("../aside.php") ?>
+    <!-- aside -->
 
     <main class="main-content position-relative max-height-vh-100 h-100  ">
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
-        <!-- End Navbar -->
-        <div class="container-fluid py-4">
-           
-       
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="card border-0 mb-4 mx-4 p-3">
 
+        <!-- user -->
+        <div class="container-fluid py-2">
+
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div class="d-flex align-items-center mb-4 mx-4 p-2">
+                        <div>
+                            <i class="fa-solid fa-user-group fa-2x me-2"></i>
+                        </div>
+                        <div>
+                            <h2>會員資料編輯</h2>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4 mx-4 p-3">
 
                         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
@@ -62,12 +85,12 @@ $userCount = $result->num_rows;
                         </div>
 
                         <div class="container">
-                            <div class="row d-flex justify-content-center py-3">
-                                <div class="col-md-8 col-sm-6">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-12">
                                     <?php if ($userCount > 0): ?>
                                         <form action="doUpdateUser.php" method="post">
                                             <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                                            <table class="table table-bordered">
+                                            <table class="user-table table align-middle">
                                                 <tr>
                                                     <th>ID</th>
                                                     <td><?= $row["id"] ?></td>
@@ -84,8 +107,22 @@ $userCount = $result->num_rows;
                                                 </tr>
                                                 <tr>
                                                     <th>性別</th>
-                                                    <td><?= $row["gender"] ?></td>
+                                                    <td>
+                                                        <div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="男性"
+                                                                    <?= ($row["gender"] == "男性") ? "checked" : "" ?>>
+                                                                <label class="form-check-label" for="male">男性</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="女性"
+                                                                    <?= ($row["gender"] == "女性") ? "checked" : "" ?>>
+                                                                <label class="form-check-label" for="female">女性</label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
+
                                                 <tr>
                                                     <th>電話</th>
                                                     <td>
@@ -101,7 +138,7 @@ $userCount = $result->num_rows;
                                                 <tr>
                                                     <th>生日</th>
                                                     <td>
-                                                        <?= $row["birth"] ?></td>
+                                                        <input type="date" class="form-control" name="birth" value="<?= $row["birth"] ?>">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -137,6 +174,8 @@ $userCount = $result->num_rows;
         </div>
         </div>
         </div>
+        <!-- 頁尾 -->
+        <?php include("../footer.php"); ?>
     </main>
     <?php include("../js.php") ?>
 </body>

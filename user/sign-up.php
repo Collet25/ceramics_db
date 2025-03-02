@@ -1,43 +1,23 @@
-<!--
-=========================================================
-* Corporate UI - v1.0.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/corporate-ui
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-  <title>
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Noto+Sans:300,400,500,600,700,800|PT+Mono:300,400,500,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <!-- <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" /> -->
-  <link rel="stylesheet" href="/corporate/assets/css/corporate-ui-dashboard.css">
+  <?php include("../css.php") ?>
   <style>
     body {
       background-image: url('/corporate/assets/img/bg.png');
       background-repeat: no-repeat;
       background-size: cover;
+      min-height: 100vh;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -45,8 +25,8 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-6 d-flex flex-column mx-auto">
-        <div class="card mt-5" style="background-color:rgba(255, 255, 255, 0.8);">
+      <div class="col-md-6 d-flex mx-auto">
+        <div class="card mt-5 mb-5" style="background-color:rgba(255, 255, 255, 0.8);">
           <div class="card-header pb-0 text-left bg-transparent">
             <h3 class="font-weight-black text-dark display-6">註冊</h3>
           </div>
@@ -57,6 +37,11 @@
                 <div class="col-md-6">
                   <label for="account" class="form-label">帳號</label>
                   <input type="text" class="form-control" placeholder="請輸入3~20字元的帳號" name="account" id="account">
+
+                  <?php if (isset($_GET['error']) && $_GET['error'] == '該帳號已註冊'): ?>
+                    <div class="error-message" id="errorMessage">該帳號已註冊</div>
+                  <?php endif; ?>
+
                 </div>
                 <div class="col-md-6">
                   <label for="password" class="form-label">密碼</label>
@@ -83,11 +68,11 @@
                 <label for="">性別</label>
                 <div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="male" value="男性" checked>
+                    <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" id="male" value="男性" checked>
                     <label class="form-check-label" for="male">男性</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="female" value="女性">
+                    <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" id="female" value="女性">
                     <label class="form-check-label" for="female">女性</label>
                   </div>
                 </div>
@@ -97,8 +82,8 @@
               </div>
             </form>
           </div>
-          <div class="card-footer text-center pt-0 px-lg-2 px-1">
-            <p class=" text-xs mx-auto">
+          <div class="card-footer text-center px-lg-2 px-1">
+            <p class="mx-auto py-2">
               已經是會員了?
               <a href="sign-in.php" class="text-dark font-weight-bold">登入</a>
             </p>
@@ -110,26 +95,19 @@
 
 
   <script>
-    <?php include("js.php") ?>
-  </script>
-  <!--   Core JS Files   -->
-  <!-- <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
+    setTimeout(function() {
+      var errorMessage = document.getElementById("errorMessage");
+      if (errorMessage) {
+        errorMessage.style.display = "none";
+
+        // 移除 URL 內的 error 參數
+        var url = new URL(window.location.href);
+        url.searchParams.delete("error");
+        window.history.replaceState({}, document.title, url.toString());
       }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
+    }, 3000);
   </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script> -->
+
 </body>
 
 </html>

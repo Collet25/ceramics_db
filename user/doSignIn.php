@@ -8,50 +8,56 @@ if (!isset($_POST["account"])) {
 
 $account = $_POST["account"];
 $password = $_POST["password"];
-$repassword = $_POST["repassword"];
+// $repassword = $_POST["repassword"];
 
-$sql = "SELECT * FROM users WHERE account='$account'";
+$sql = "SELECT * FROM users WHERE account='$account' AND password='$password'";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
 
-// $patternAccount="/^.{4,12}$/";
+//帳號長度檢查
 
 if (strlen($account) < 3 || strlen($account) > 20) {
-    die("請輸入3~20字元的帳號");
+    echo "<script>alert('請輸入3~20字元的帳號'); window.location.href='sign-in.php';</script>";
+    exit();
 }
-// if(preg_match($patternAccount, $account)){
-//     die("請輸入3~20字元的帳號");
-// }
+
+
+
+//密碼長度檢查
+
+if (strlen($password) < 5 || strlen($password) > 20) {
+    echo "<script>alert('請輸入5~20字元的密碼'); window.location.href='sign-in.php';</script>";
+    exit();
+}
+
+
+
+//帳號密碼是否存在
+
+if ($userCount == 0) {
+    // 帳號或密碼錯誤
+    echo "<script>alert('帳號或密碼錯誤'); window.location.href='sign-in.php';</script>";
+    exit();
+}
+//帳號密碼正確
+header("location: users.php");
+exit();
+
+
+
+
+
 
 // if ($userCount == 1) {
 //     die("該帳號已註冊");
 // }
-if ($userCount == 0){
-    die("帳號或密碼錯誤");
-}
-
-if (strlen($password < 5 || strlen($password) > 20)) {
-    die("請輸入5~20字元的密碼");
-}
-
-if ($password != $repassword) {
-    die("密碼不一致");
-}
-
-//加密
-// $password=md5($password);
-
-// $now = date("Y-m-d H:i:s");
-// $sql = "INSERT INTO users (account, password, created_at, valid) 
-//     VALUES ('$account', '$password', '$now', 1)";
-
-// if ($conn->query($sql) === TRUE) {
-
-// } else {
-//     echo "Error: " . $sql . "<br>" . $conn->error;
-//     die;
+// if ($userCount == 0){
+//     die("帳號或密碼錯誤");
+// }
+// if ($password != $repassword) {
+//     die("密碼不一致");
 // }
 
-// $conn->close();
 
-// header("location: create-user.php");
+
+
