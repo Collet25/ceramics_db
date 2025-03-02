@@ -1,4 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+
+<?php
 require_once("../ceramics_db_connect.php");
 
 if(!isset($_POST["account"])){
@@ -12,6 +17,7 @@ $email=$_POST["email"];
 $phone=$_POST["phone"];
 $gender=$_POST["gender"];
 $birth = date("Y-m-d", strtotime($_POST["birth"]));
+$frozen = $_POST["frozen"];
 $now=date("Y-m-d H:i:s");
 
 // $repassword = $_POST["repassword"];
@@ -29,7 +35,7 @@ if ($userCount > 0) {
 }
 
 
-$sql="INSERT INTO users (account, password, name, email, phone, gender, birth, created_at) VALUES ('$account', '$password', '$name', '$email', '$phone', '$gender', '$birth', '$now')";
+$sql="INSERT INTO users (account, password, name, email, phone, gender, birth, created_at, valid, frozen) VALUES ('$account', '$password', '$name', '$email', '$phone', '$gender', '$birth', '$now', '0', ' ')";
 // echo $sql;
 
 // if ($conn->query($sql) === TRUE) {
