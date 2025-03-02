@@ -10,3 +10,9 @@ logo-img/**/*.jpg
 logo-img/**/*.jpeg
 logo-img/**/*.gif
 logo-img/**/*.svg
+
+instructor_img/**/*.png
+instructor_img/**/*.jpg
+instructor_img/**/*.jpeg
+instructor_img/**/*.gif
+instructor_img/**/*.svg
