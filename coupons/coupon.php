@@ -138,7 +138,7 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
     <?php include("../css.php") ?>
 </head>
 
-<body class="g-sidenav-show" >
+<body class="g-sidenav-show">
     <!-- aside -->
     <?php include("../aside.php") ?>
 
@@ -150,122 +150,117 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
         <div class="container-fluid py-4 px-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="col-12 col-md-12 mb-3">
-                        <h6 class="font-weight-bold fs-4 mb-0 ms-2"><i class="fa-solid fa-tags"></i> 優惠券管理</h6>
-                    </div>
                     <div class="card">
-
                         <!-- 優惠券標題欄 -->
                         <div class="card-header border-bottom pb-0 shadow-sm">
-                            <div class="row align-items-center g-2">
-                                <!-- 標題 -->
-
-                                <div class="d-flex justify-content-end d-flex-wrap">
+                            <div class="row align-items-center g-2 pt-2">
+                                <div class="d-flex justify-content-between">
+                                    <div class=" mb-3">
+                                        <h6 class="font-weight-bold fs-4 mb-0 ms-2"><i class=" fa-solid fa-tags"></i> 優惠券列表</h6>
+                                    </div>
+                                    <!-- 按鈕區 -->
+                                    <div class="d-flex justify-content-end gap-2 mb-3">
+                                        <a href="coupon.php?p=1&order=1" class="btn btn-cancel text-black text-center">
+                                            <i class="fa-solid fa-filter"></i> 重新篩選
+                                        </a>
+                                        <a href="create-coupon.php" class="btn btn-primary d-flex align-items-center">
+                                            <i class="fa-solid fa-plus me-2"></i> 新增優惠券
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex d-flex-wrap">
+                                    <div class="h5">
+                                        篩選條件
+                                    </div>
                                     <!-- 按鈕 & 搜尋區 -->
-                                    <div class="col-12 col-md-auto ms-auto d-flex flex-wrap align-items-center gap-2">
-
+                                    <div class="col-12 col-md-auto ms-auto d-flex flex-wrap align-items-center gap-2 m-0 p-0">
                                         <div class="row g-2 align-items-center">
                                             <!-- 搜尋框 -->
                                             <div class="col-12 col-sm-auto d-flex mb-3">
                                                 <form action="" method="get" class="w-100">
                                                     <div class="input-group w-100">
+                                                        <button class="btn btn-gray btn-outline-white" id="button-addon2" type="submit"><i class="fa-solid fa-magnifying-glass fa-fw"></i></button>
                                                         <input type="search" class="form-control" placeholder="搜尋優惠券名稱" name="q" value="<?= isset($q) ? htmlspecialchars($q, ENT_QUOTES, 'UTF-8') : '' ?>">
-                                                        <button class="btn btn-gray" id="button-addon2" type="submit"><i class="fa-solid fa-magnifying-glass fa-fw"></i></button>
+
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-
-                                        <!-- 按鈕區 -->
-                                        <div class="col-12 col-sm-auto d-flex justify-content-end gap-2 mb-3">
-                                            <a href="coupon.php?p=1&order=1" class="btn btn-sm btn-white text-center">
-                                                <i class="fa-solid fa-reply-all fa-fw me-1"></i>查看全部
-                                            </a>
-                                        </div>
-                                        <div class="col-12 col-sm-auto d-flex justify-content-end gap-2 mb-3">
-                                            <a href="create-coupon.php" class="btn btn-sm btn-primary d-flex align-items-center">
-                                                <i class="fa-solid fa-plus me-2"></i>新增優惠券
-                                            </a>
-                                        </div>
-
                                     </div>
                                 </div>
-
                             </div>
 
                             <!-- 📌 進階篩選 -->
-                            <div class="card-body mt-0 py-0 ">
+                            <div class="card-body mt-0 p-0">
                                 <form method="get" action="">
-                                    <div class="d-flex mt-1">
-                                        <i class="fa-solid fa-filter me-2 fa-fw pt-1"></i>進階篩選
-                                    </div>
                                     <div class="my-0 py-0 row g-3 d-flex">
                                         <!-- 適用範圍 -->
-                                        <div class="col-md-3 col-12">
-                                            <label class="form-label">適用範圍</label>
+                                        <div class="col-md-3 col-12 mt-0">
+                                            <label class="form-label h6">適用範圍</label>
                                             <div class="d-flex flex-wrap">
                                                 <div class="form-check me-2 ">
-                                                    <input class="form-check-input " type="radio" name="category" value="全部" id="categoryAll" <?= isset($_GET["category"]) && $_GET["category"] == "全部" ? "checked" : "" ?> checked>
-                                                    <label class="form-check-label" for="categoryAll">全部</label>
+                                                    <input class="form-check-input p-1" type="radio" name="category" value="全部" id="categoryAll" <?= isset($_GET["category"]) && $_GET["category"] == "全部" ? "checked" : "" ?> checked>
+                                                    <label class="form-check-label fs-6 ms-0" for="categoryAll">全部</label>
                                                 </div>
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="category" value="禮品" id="categoryGift" <?= isset($_GET["category"]) && $_GET["category"] == "禮品" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="categoryGift">禮品</label>
+                                                    <input class="form-check-input p-1" type="radio" name="category" value="禮品" id="categoryGift" <?= isset($_GET["category"]) && $_GET["category"] == "禮品" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="categoryGift">禮品</label>
                                                 </div>
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="category" value="圖書影音" id="categoryMedia" <?= isset($_GET["category"]) && $_GET["category"] == "圖書影音" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="categoryMedia">圖書影音</label>
+                                                    <input class="form-check-input p-1" type="radio" name="category" value="圖書影音" id="categoryMedia" <?= isset($_GET["category"]) && $_GET["category"] == "圖書影音" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="categoryMedia">圖書影音</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="category" value="課程" id="categoryCourse" <?= isset($_GET["category"]) && $_GET["category"] == "課程" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="categoryCourse">課程</label>
+                                                    <input class="form-check-input p-1" type="radio" name="category" value="課程" id="categoryCourse" <?= isset($_GET["category"]) && $_GET["category"] == "課程" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="categoryCourse">課程</label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- 折扣類型 -->
-                                        <div class="col-md-3 col-12">
-                                            <label class="form-label">折扣類型</label>
+                                        <div class="col-md-3 col-12 mt-0">
+                                            <label class="form-label h6">折扣類型</label>
                                             <div class="d-flex flex-wrap">
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="discountType" value="" id="discountAll" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "" ? "checked" : "" ?> checked>
-                                                    <label class="form-check-label" for="discountAll">全部</label>
+                                                    <input class="form-check-input p-1" type="radio" name="discountType" value="" id="discountAll" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "" ? "checked" : "" ?> checked>
+                                                    <label class="form-check-label fs-6 ms-0" for="discountAll">全部</label>
                                                 </div>
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="discountType" value="百分比" id="discountPercentage" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "百分比" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="discountPercentage">百分比</label>
+                                                    <input class="form-check-input p-1" type="radio" name="discountType" value="百分比" id="discountPercentage" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "百分比" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="discountPercentage">百分比</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="discountType" value="現金" id="discountFixed" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "現金" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="discountFixed">現金</label>
+                                                    <input class="form-check-input p-1" type="radio" name="discountType" value="現金" id="discountFixed" <?= isset($_GET["discountType"]) && $_GET["discountType"] == "現金" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="discountFixed">現金</label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- 狀態 -->
-                                        <div class="col-md-2 col-12">
-                                            <label class="form-label">優惠券狀態</label>
+                                        <div class="col-md-2 col-12 mt-0">
+                                            <label class="form-label h6">優惠券狀態</label>
                                             <div class="d-flex flex-wrap">
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="status" value="all" id="statusAll" <?= isset($_GET["status"]) && $_GET["status"] == "all" ? "checked" : "" ?> checked>
-                                                    <label class="form-check-label" for="statusAll">全部</label>
+                                                    <input class="form-check-input p-1" type="radio" name="status" value="all" id="statusAll" <?= isset($_GET["status"]) && $_GET["status"] == "all" ? "checked" : "" ?> checked>
+                                                    <label class="form-check-label fs-6 ms-0" for="statusAll">全部</label>
                                                 </div>
                                                 <div class="form-check me-2">
-                                                    <input class="form-check-input" type="radio" name="status" value="啟用" id="statusOn" <?= isset($_GET["status"]) && $_GET["status"] == "啟用" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="statusOn">啟用</label>
+                                                    <input class="form-check-input p-1" type="radio" name="status" value="啟用" id="statusOn" <?= isset($_GET["status"]) && $_GET["status"] == "啟用" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="statusOn">啟用</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="status" value="停用" id="statusOff" <?= isset($_GET["status"]) && $_GET["status"] == "停用" ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="statusOff">停用</label>
+                                                    <input class="form-check-input p-1" type="radio" name="status" value="停用" id="statusOff" <?= isset($_GET["status"]) && $_GET["status"] == "停用" ? "checked" : "" ?>>
+                                                    <label class="form-check-label fs-6 ms-0" for="statusOff">停用</label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- 有效日期範圍 -->
 
-                                        <div class="col-md-4 col-12">
+                                        <div class="col-md-4 col-12 mt-0">
                                             <div class="col-auto">
-                                                <label class="form-label mb-0">有效日期範圍</label>
+                                                <label class="form-label mb-0 h6">有效日期範圍</label>
                                             </div>
                                             <div class="row align-items-center ms-1">
                                                 <div class="col-5">
@@ -283,14 +278,17 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
                                         </div>
 
                                         <!-- 按鈕和篩選結果數量並排 -->
-                                        <div class="col-12 d-flex justify-content-center align-items-center">
-                                            <!-- 按鈕 -->
-                                            <button type="submit" class="btn btn-primary" style="width: 100px;">篩選</button>
+                                        <div class="d-flex col-12 align-items-end">
+                                            <!-- 篩選結果數量置中 -->
+                                            <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+                                                <strong class="h6" id="filterResultCount">顯示結果：共 <?= $couponCount ?> 筆 </strong>
+                                            </div>
+                                            <!-- 頁數資訊置底 -->
+                                            <div class="d-flex justify-content-end align-items-end">
+                                                <strong class="h6">每頁10筆， <?= $page ?> / <?= $totalPage ?> 頁</strong>
+                                            </div>
                                         </div>
-                                        <div class="col-12 d-flex justify-content-end align-items-center">
-                                            <!-- 📌 篩選結果數量 -->
-                                            <strong id="filterResultCount">共 <?= $couponCount ?> 筆資料</strong>
-                                        </div>
+
                                     </div>
                             </div>
                             </form>
@@ -300,63 +298,68 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
                         <!-- 📌 優惠券列表 -->
                         <div class="table-responsive p-0">
                             <?php if ($couponCount > 0): ?>
-                                <table class="table align-items-center justify-content-center mb-0">
-                                    <thead class="bg-gray-100">
+                                <table class="table table-striped table-hover align-items-center justify-content-center mb-0" style="border-radius: 0px;">
+                                    <thead class="text-center">
                                         <tr>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 text-center">
-                                                <a class="text-decoration-none text-dark" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderId ?>">
-                                                    編號
+                                            <th class="fs-6">
+                                                <a class="text-decoration-none text-light" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderId ?>">
+                                                    ID
                                                     <i class="fa-solid <?= ($order == 1) ? 'fa-sort-up' : (($order == 2) ? 'fa-sort-down' : 'fa-sort') ?>"></i>
                                                 </a>
                                             </th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">名稱</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">折扣碼</th>
-                                            <th id="category" name="category" class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
+                                            <th class="text-light fs-6">名稱</th>
+                                            <th class="text-light fs-6">折扣碼</th>
+                                            <th id="category" name="category" class="text-light fs-6">
                                                 適用範圍
                                             </th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">類型</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
-                                                <a class="text-decoration-none text-dark" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderDiscount ?>">
+                                            <!-- <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">類型</th> -->
+                                            <th class="text-light fs-6">
+                                                <a class="text-decoration-none text-light" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderDiscount ?>">
                                                     折扣
                                                     <i class="fa-solid <?= ($order == 3) ? 'fa-sort-up' : (($order == 4) ? 'fa-sort-down' : 'fa-sort') ?>"></i>
                                                 </a>
                                             </th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
-                                                <a class="text-decoration-none text-dark" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderQuantity ?>">
+                                            <th class="text-light text-s font-weight-semibold">
+                                                <a class="text-decoration-none text-light" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderQuantity ?>">
                                                     數量(張)
                                                     <i class="fa-solid <?= ($order == 5) ? 'fa-sort-up' : (($order == 6) ? 'fa-sort-down' : 'fa-sort') ?>"></i>
                                                 </a>
                                             </th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2"><a class="text-decoration-none text-dark" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderStartDate ?>">
+                                            <th class="text-light text-s font-weight-semibold"><a class="text-decoration-none text-light" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderStartDate ?>">
                                                     開始日期
                                                     <i class="fa-solid <?= ($order == 7) ? 'fa-sort-up' : (($order == 8) ? 'fa-sort-down' : 'fa-sort') ?>"></i>
                                                 </a></th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2"><a class="text-decoration-none text-dark" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderEndDate ?>">
+                                            <th class="text-light  font-weight-semibold"><a class="text-decoration-none text-light" href="coupon.php?<?= $queryString ?>&order=<?= $nextOrderEndDate ?>">
                                                     截止日期
                                                     <i class="fa-solid <?= ($order == 9) ? 'fa-sort-up' : (($order == 10) ? 'fa-sort-down' : 'fa-sort') ?>"></i>
                                                 </a></th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">狀態</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">操作</th>
+                                            <th class="text-light text-s font-weight-semibold">狀態</th>
+                                            <th class="text-light text-s font-weight-semibold">操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="text-center">
                                         <?php foreach ($rows as $row): ?>
                                             <tr>
                                                 <td class="text-center"><?= $row["id"] ?></td>
                                                 <td><?= $row["name"] ?></td>
                                                 <td><?= $row["code"] ?></td>
                                                 <td><?= $row["categories"] ?></td>
-                                                <td><?= $row["discountType"] ?></td>
+                                                <td class="d-none"><?= $row["discountType"] ?></td>
                                                 <td><?= $row["discount"] ?></td>
-                                                <td><?= $row["quantity"] ?></td>
+                                                <td> <?= number_format($row["quantity"]) ?></td>
                                                 <td><?= $row["startDate"] ?></td>
                                                 <td><?= $row["endDate"] ?></td>
-                                                <td><?= $row['status'] ?></td>
+                                                <td><?php if ($row['status'] == '啟用'): ?>
+                                                        <strong class="text-dark">啟用</span>
+                                                        <?php else: ?>
+                                                            <strong class="text-white btn btn-sm bg-danger">停用</strong>
+                                                        <?php endif; ?>
+                                                </td>
                                                 <td>
-                                                    <a class="btn btn-primary" href="coupon-detail.php?id=<?= $row["id"] ?>">
+                                                    <a class="btn btn-outline-success" href="coupon-detail.php?id=<?= $row["id"] ?>">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>
-                                                    <a class="btn btn-primary" href="coupon-edit.php?id=<?= $row["id"] ?>">
+                                                    <a class="btn btn-outline-dark" href="coupon-edit.php?id=<?= $row["id"] ?>">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a>
                                                 </td>
@@ -370,6 +373,7 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
                                     <p class="text-muted">⚠ 找不到符合條件的優惠券，請重新篩選。</p>
                                 </div>
                             <?php endif; ?>
+
                         </div>
                     </div>
                 </div>
@@ -389,13 +393,13 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
             </div>
         </div>
         <!-- footer -->
-        
+
         <?php include("../footer.php") ?>
     </main>
-   
-   
-   
 
+
+
+    <!-- 頁數跳轉 -->
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -427,6 +431,33 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
         });
     </script>
 
+    <!-- 選取後自動提交表單 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let filters = document.querySelectorAll("input[type='radio'], input[type='date']");
+            filters.forEach(function(filter) {
+                filter.addEventListener("change", function() {
+                    this.form.submit();
+                });
+            });
+        });
+    </script>
+
+    <!-- 起訖日期限制 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let startDate = document.getElementById("filterStartDate");
+            let endDate = document.getElementById("filterEndDate");
+
+            if (startDate && endDate) {
+                startDate.addEventListener("change", function() {
+                    endDate.setAttribute("min", this.value);
+                });
+            }
+        });
+    </script>
+
+
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
@@ -434,6 +465,7 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
         let coupons = <?= json_encode($row, JSON_UNESCAPED_UNICODE); ?>;
         console.log(coupons);
     </script>
+
 
 
     <?php include("../js.php") ?>

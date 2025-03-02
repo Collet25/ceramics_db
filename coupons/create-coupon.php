@@ -20,122 +20,112 @@
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
 
-        <div class="container-fluid mt-2">
-            <!-- 返回管理頁面連結 -->
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-8 col-lg-6">
-                    <div class="card shadow-lg border-0 rounded-3">
-                        <div class="card-header text-white text-center shadow-sm position-relative d-flex justify-content-center align-items-center">
-                            
-                            <h4 class="mb-0 text-dark">新增優惠券</h4>
+        <div class="container-fluid py-4 px-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- 優惠券標題欄 -->
+                        <div class="card-header border-bottom pb-0">
+                            <div class="row align-items-center g-2 pt-2">
+                                <div class="d-flex justify-content-between">
+                                    <div class="mb-3">
+                                        <h6 class="font-weight-bold fs-4 mb-0 ms-2">
+                                            <i class="fa-solid fa-tags"></i> 新增優惠券
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="card-body p-4">
+                        <div class="card-body mt-3">
                             <form action="doCreate.php" method="post">
+                                <table class="table table-borderless table-sm" style="border-radius: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-center align-middle bg-gray-100">名稱</th>
+                                            <td><input type="text" name="name" class="form-control" placeholder="請輸入4~30字" required></td>
+                                            <th class="text-center align-middle bg-gray-100">折扣碼</th>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" id="code" name="code" class="form-control" required>
+                                                    <button type="button" class="btn btn-info" onclick="generateUUID()">自動生成</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center align-middle bg-gray-100">適用範圍</th>
+                                            <td>
+                                                <select name="categories" class="form-select" required>
+                                                    <option value="禮品">禮品</option>
+                                                    <option value="圖書影音">圖書影音</option>
+                                                    <option value="課程">課程</option>
+                                                </select>
+                                            </td>
+                                            <th class="text-center align-middle bg-gray-100">最低消費金額</th>
+                                            <td><input type="number" name="minSpend" class="form-control" min="0" placeholder="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center align-middle bg-gray-100">折扣類型</th>
+                                            <td>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input p-1" type="radio" id="percentage" name="discountType" value="百分比" checked>
+                                                    <label class="form-check-label" for="percentage">百分比折扣</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input p-1" type="radio" id="fixed" name="discountType" value="現金">
+                                                    <label class="form-check-label" for="fixed">現金折扣</label>
+                                                </div>
+                                            </td>
+                                            <th class="text-center align-middle bg-gray-100">面額</th>
+                                            <td>
+                                                <div class="input-group">
+                                                    <span class="input-group-text" id="discountPrefix">$</span>
+                                                    <input type="number" id="discount" name="discount" class="form-control" step="0.01" min="0" required>
+                                                    <span class="input-group-text" id="discountSuffix">%</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center align-middle bg-gray-100">開始日期</th>
+                                            <td><input type="date" id="startDate" name="startDate" class="form-control" required></td>
+                                            <th class="text-center align-middle bg-gray-100">結束日期</th>
+                                            <td><input type="date" id="endDate" name="endDate" class="form-control" required></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center align-middle bg-gray-100">流通數量</th>
+                                            <td><input type="number" name="quantity" class="form-control" min="1" value="1" required></td>
+                                            <th class="text-center align-middle bg-gray-100">優惠券狀態</th>
+                                            <td>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input p-1" type="radio" id="statusActive" name="status" value="啟用" checked>
+                                                    <label class="form-check-label" for="statusActive">啟用</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input p-1" type="radio" id="statusInactive" name="status" value="停用">
+                                                    <label class="form-check-label" for="statusInactive">停用</label>
+                                                </div>
 
-                                <!-- 優惠券名稱 -->
-                                <div class="mb-3">
-                                    <label for="name" class="form-label fw-semibold">名稱</label>
-                                    <input type="text" id="name" name="name" class="form-control" required>
-                                </div>
-
-                                <!-- 折扣碼 + 生成按鈕 -->
-                                <div class="mb-3">
-                                    <label for="code" class="form-label fw-semibold">折扣碼</label>
-                                    <div class="input-group">
-                                        <input type="text" id="code" name="code" class="form-control" required>
-                                        <button type="button" class="btn btn-primary" onclick="generateUUID()">自動生成</button>
-                                    </div>
-                                </div>
-
-                                <!-- 適用範圍 -->
-                                <div class="mb-3">
-                                    <label for="categories" class="form-label fw-semibold">適用範圍</label>
-                                    <select id="categories" name="categories" class="form-select" required>
-                                        <option value="全部">全部</option>
-                                        <option value="禮品">禮品</option>
-                                        <option value="圖書影音">圖書影音</option>
-                                        <option value="課程">課程</option>
-                                    </select>
-                                </div>
-
-                                <!-- 折扣類型 -->
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">折扣</label>
-                                    <div class="d-flex gap-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="discountType" id="percentage" value="百分比" checked>
-                                            <label class="form-check-label" for="percentage">百分比折扣</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="discountType" id="fixed" value="現金">
-                                            <label class="form-check-label" for="fixed">現金折扣</label>
-                                        </div>
-                                    </div>
-                                    <div class="input-group mt-2">
-                                        <span class="input-group-text" id="discountPrefix">$</span>
-                                        <input type="number" id="discount" name="discount" class="form-control" step="0.01" min="0" required>
-                                        <span class="input-group-text" id="discountSuffix">%</span>
-                                    </div>
-                                </div>
-
-                                <!-- 最低消費金額 -->
-                                <div class="mb-3">
-                                    <label for="minSpend" class="form-label fw-semibold">最低消費金額</label>
-                                    <input type="number" id="minSpend" name="minSpend" class="form-control" min="0">
-                                </div>
-
-                                <!-- 可使用次數 -->
-                                <div class="mb-3">
-                                    <label for="quantity" class="form-label fw-semibold">流通數量</label>
-                                    <input type="number" id="quantity" name="quantity" class="form-control" min="1" value="1" required>
-                                </div>
-
-                                <!-- 開始日期 -->
-                                <div class="mb-3">
-                                    <label for="startDate" class="form-label fw-semibold">開始日期</label>
-                                    <input type="date" id="startDate" name="startDate" class="form-control" required>
-                                </div>
-
-                                <!-- 結束日期 -->
-                                <div class="mb-3">
-                                    <label for="endDate" class="form-label fw-semibold">結束日期</label>
-                                    <input type="date" id="endDate" name="endDate" class="form-control" required>
-                                </div>
-
-                                <!-- 是否啟用 -->
-                                <div class="mb-3">
-                                    <label for="valid" class="form-label fw-semibold">優惠券狀態</label>
-                                    <div class="d-flex gap-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" id="enabled" value="啟用" checked>
-                                            <label class="form-check-label" for="enabled">啟用</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" id="disabled" value="停用">
-                                            <label class="form-check-label" for="disabled">停用</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <!-- 提交按鈕 -->
-                                <div class="d-flex justify-content-between">
-                                    <a href="coupon.php" class="btn btn-cancel">
-                                        <i class="fa-solid fa-circle-left"></i> 返回
-                                    </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa-solid fa-plus"></i> 新增
+                                       確認
                                     </button>
+                                    <a href="coupon.php" class="btn btn-cancel">
+                                        取消
+                                    </a>
+                                    
                                 </div>
-
+                            </form>
                         </div>
                     </div>
-                    </form>
                 </div>
-                <!-- footer -->
-                <?php include("../footer.php") ?>
             </div>
         </div>
+
+        <?php include("../footer.php") ?>
 
     </main>
 
@@ -182,10 +172,16 @@
 
     <!-- 起訖日期限制 -->
     <script>
-        document.getElementById("startDate").addEventListener("change", function() {
-            document.getElementById("endDate").setAttribute("min", this.value);
+        document.addEventListener("DOMContentLoaded", function() {
+            const startDate = document.getElementById("startDate");
+            const endDate = document.getElementById("endDate");
+
+            startDate.addEventListener("change", function() {
+                endDate.setAttribute("min", this.value);
+            });
         });
     </script>
+
 
     <?php include("../js.php") ?>
 </body>
