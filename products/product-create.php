@@ -237,6 +237,10 @@ $origins_result = $conn->query($sql_origins);
     .swal2-cancel {
       background: #dc3545 !important;
     }
+
+    .products-create {
+      animation: fadeIn 0.5s;
+    }
   </style>
 
 </head>
@@ -258,7 +262,7 @@ $origins_result = $conn->query($sql_origins);
 
 
     <!-- **********商品列表********* -->
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4 products-create">
       <div class="row">
         <div class="col-12">
           <div class="mb-4">

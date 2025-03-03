@@ -263,6 +263,9 @@ $subcategories_result = $stmt->get_result();
         .swal2-cancel {
             background: #dc3545 !important;
         }
+        .products-edit {
+            animation: fadeIn 0.5s;
+        }
     </style>
 
 </head>
@@ -284,7 +287,7 @@ $subcategories_result = $stmt->get_result();
 
 
         <!-- **********商品列表********* -->
-        <div class="container-fluid py-4">
+        <div class="container-fluid py-4 products-edit">
         <div class="row">
             <div class="col-12">
                 <div class="mb-4">

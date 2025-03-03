@@ -444,6 +444,11 @@ $product = $result->fetch_assoc();
         .mb-4 {
             margin-bottom: 1rem !important;
         }
+
+        .products-view {
+            animation: fadeIn 0.5s ease;
+            margin-top: -1.5rem;
+        }
     </style>
 
 </head>
