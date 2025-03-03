@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>新增優惠券</title>
-    <style>
 
-    </style>
     <?php include("../css.php") ?>
 </head>
 
@@ -21,8 +20,8 @@
         <?php include("../navbar.php") ?>
 
         <div class="container-fluid py-4 px-5">
-            <div class="row">
-                <div class="col-12">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 col-sm-12 col-md-10 col-lg-8">
                     <div class="card">
                         <!-- 優惠券標題欄 -->
                         <div class="card-header border-bottom pb-0">
@@ -37,9 +36,9 @@
                             </div>
                         </div>
 
-                        <div class="card-body mt-3">
+                        <div class="card-body mt-3 table-responsive">
                             <form action="doCreate.php" method="post">
-                                <table class="table table-borderless table-sm" style="border-radius: 0px;">
+                                <table class="table table-borderless table-sm " style="border-radius: 0px;">
                                     <tbody>
                                         <tr>
                                             <th class="text-center align-middle bg-gray-100">名稱</th>

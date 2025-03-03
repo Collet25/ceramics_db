@@ -24,6 +24,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>編輯優惠券</title>
     <style>
         .btn-outline-brown {
@@ -53,6 +54,13 @@ $conn->close();
             margin: 20px auto;
 
         }
+
+        .modal-body {
+            max-height: 100px;
+            /* 設定最大高度 */
+            overflow-y: auto;
+            /* 允許滾動 */
+        }
     </style>
     <?php include("../css.php") ?>
 </head>
@@ -60,32 +68,15 @@ $conn->close();
 <body class="g-sidenav-show">
     <!-- aside -->
     <?php include("../aside.php") ?>
-    <!-- Modal -->
-    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title" id="">系統資訊</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    確認要刪除此優惠券?
-                </div>
-                <div class="modal-footer">
-                    <a type="button" class="btn btn-danger" href="couponDelete.php?id=<?= $row["id"] ?>">確認</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Main content -->
     <main class=" main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
         <div class="container-fluid py-4 px-5">
-            <div class="row">
-                <div class="col-12">
+            <div class="row  d-flex justify-content-center">
+                <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <!-- 優惠券標題欄 -->
                         <div class="card-header border-bottom pb-0 ">
@@ -104,21 +95,21 @@ $conn->close();
                                         <input type="hidden" name="id" value="<?= $row["id"] ?>">
                                         <input type="hidden" name="code" value="<?= $row["code"] ?>">
 
-                                        <table class="table table-borderless table-sm" style="border-radius: 0px;">
+                                        <table class="table table-borderless " style="border-radius: 0px;">
                                             <tbody>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">編號</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">編號</th>
                                                     <td><?= $row["id"] ?></td>
-                                                    <th class="text-center align-middle bg-gray-100">名稱</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">名稱</th>
                                                     <td>
                                                         <input type="text" class="form-control" name="name"
                                                             value="<?= $row["name"] ?>" title="名稱長度應少於30字">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">折扣碼</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">折扣碼</th>
                                                     <td><?= $row["code"] ?></td>
-                                                    <th class="text-center align-middle bg-gray-100">適用範圍</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">適用範圍</th>
                                                     <td>
                                                         <select id="categories" name="categories" class="form-select" required>
                                                             <option value="禮品" <?= ($row["categories"] == "禮品") ? "selected" : "" ?>>禮品</option>
@@ -129,11 +120,11 @@ $conn->close();
 
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">低消金額($)</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">低消金額($)</th>
                                                     <td><input type="number" class="form-control" name="minSpend"
                                                             value="<?= $row["minSpend"] ?>">
                                                     </td>
-                                                    <th class="text-center align-middle bg-gray-100">發行數量(張)</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">發行數量(張)</th>
                                                     <td><input
                                                             type="number"
                                                             class="form-control"
@@ -142,7 +133,7 @@ $conn->close();
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">類型</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">類型</th>
                                                     <td>
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input p-1" type="radio" name="discountType" id="percentage" value="百分比"
@@ -156,7 +147,7 @@ $conn->close();
                                                         </div>
                                                     </td>
 
-                                                    <th class="text-center align-middle bg-gray-100">面額</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">面額</th>
                                                     <td>
                                                         <div class="input-group">
                                                             <span class="input-group-text" id="discountPrefix">$</span>
@@ -168,15 +159,15 @@ $conn->close();
 
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">開始日期</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">開始日期</th>
                                                     <td><input type="date" id="startDate" name="startDate" class="form-control" required
                                                             value="<?= date('Y-m-d', strtotime($row['startDate'])) ?>"></td>
-                                                    <th class="text-center align-middle bg-gray-100">結束日期</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">結束日期</th>
                                                     <td><input type="date" id="endDate" name="endDate" class="form-control" required
                                                             value="<?= date('Y-m-d', strtotime($row['endDate'])) ?>"></td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">狀態</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">狀態</th>
                                                     <td>
                                                         <div class="d-flex gap-3">
                                                             <div class="form-check form-check-inline">
@@ -192,14 +183,14 @@ $conn->close();
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-100">建立時間</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">建立時間</th>
                                                     <td><?= $row["created_at"] ?></td>
-                                                    <th class="text-center align-middle bg-gray-100">最後更新時間</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">最後更新時間</th>
                                                     <td><?= $now ?></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        
+
                                         <div class="d-flex justify-content-between">
                                             <a href="coupon.php" class=" btn btn-cancel">
                                                 <div class=" fs-6 mb-0"> <i class="fa-solid fa-circle-left"></i> 返回
@@ -209,7 +200,7 @@ $conn->close();
                                                 <button type="submit" class="btn btn-primary me-1">
                                                     <i class="fa-regular fa-floppy-disk fa-fw"></i> 儲存
                                                 </button>
-                                                <button type="button" class="btn btn-outline-danger text-center" data-bs-toggle="modal" data-bs-target="#infoModal">
+                                                <button type="button" class="btn btn-outline-danger text-center delete-btn" data-id="<?= $row["id"] ?>">
                                                     <i class="fa-solid fa-trash-can fa-fw"></i> 刪除
                                                 </button>
                                             </div>
@@ -263,8 +254,37 @@ $conn->close();
         });
     </script>
 
-    <?php include("../js.php") ?>
+    <!-- 刪除優惠券 -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let couponId = this.dataset.id; // 取得優惠券 ID
+                    // console.log("刪除的優惠券 ID:", couponId); // 測試是否正確取得 ID
 
+                    Swal.fire({
+                        title: "確定要刪除此優惠券嗎？",
+                        text: "刪除後將無法復原！",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#6c757d",
+                        confirmButtonText: "確認刪除",
+                        cancelButtonText: "取消"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = `couponDelete.php?id=${couponId}`;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+<!-- 加載swl.alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php include("../js.php") ?>
 </body>
 
 </html>
