@@ -16,21 +16,36 @@
             // 定義頁面對應的標題
             $pageTitles = [
                 'users.php' => '會員管理',
+                'user.php' => '會員管理',
+                'user-edit.php' => '會員管理',
                 'frozenUsers.php' => '會員管理',
+                'frozenUser.php' => '會員管理',
+                'frozenUser-edit.php' => '會員管理',
 
                 'exhibition-list.php' => '展覽管理',
+                'exhibition-edit.php' => '展覽管理',
+
                 'venue-list.php' => '場地管理',
+                'venue-create.php' => '場地管理',
+                'venue-edit.php' => '場地管理',
+                'booking-create.php' => '場地管理',
 
                 'instructors.php' => '師資管理',
+                'instructor.php' => '師資管理',
                 'instructor-up.php' => '師資管理',
                 'delete-instructors.php' => '師資管理',
+                'instructor-edit.php' => '師資管理',
 
                 'product-list.php' => '商品管理',
+                'product-view.php' => '商品管理',
+                'product-edit.php' => '商品管理',
                 'product-create.php' => '商品管理',
                 'product-trash.php' => '商品管理',
 
                 'coupon.php' => '優惠券管理',
                 'create-coupon.php' => '優惠券管理',
+                'coupon-edit.php' => '優惠券管理',
+                'coupon-detail.php' => '優惠券管理',
                 
             ];
             

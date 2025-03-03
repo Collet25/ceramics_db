@@ -102,9 +102,15 @@ $result = $stmt->get_result();
   <link rel="stylesheet" href="../products/style_p.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- 噴射動畫 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2"></script>
 
 
   <style>
+    body {
+    cursor: url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png") 16 16, auto;
+    }
+
     .product-img {
       width: 100px;
       height: 100px;
@@ -191,6 +197,32 @@ $result = $stmt->get_result();
       width: 30px;
       height: 30px;
     }
+
+    /* 按下去發光 */
+    .glow-button {
+    padding: 10px 20px;
+    border: none;
+    /* background-color: #ffcc00; */
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .glow-button::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 10%, transparent 60%);
+    transform: scale(0);
+    transition: transform 0.3s;
+  }
+  .glow-button:active::after {
+    transform: scale(1);
+    transition: transform 0s;
+  }
   </style>
 
 </head>
@@ -271,7 +303,9 @@ $result = $stmt->get_result();
                 </div>
 
                 <div class="col-md-1">
-                  <button class="btn btn-primary w-100" type="submit">
+                  <!-- id="confettiBtn" -->
+                   <!-- glow-button -->
+                  <button class="btn btn-primary w-100 glow-button" type="submit" >
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
@@ -519,6 +553,35 @@ $result = $stmt->get_result();
       });
     });
   </script>
+  
+  <!-- 噴射亮片 -->
+  <!-- <script>
+    document.getElementById("confettiBtn").addEventListener("click", () => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    });
+  </script> -->
+  <!-- 滑鼠光標特效 -->
+  <!-- <script>
+    document.addEventListener("mousemove", (e) => {
+      let sparkle = document.createElement("div");
+      sparkle.style.position = "absolute";
+      sparkle.style.width = "5px";
+      sparkle.style.height = "5px";
+      sparkle.style.background = "gold";
+      sparkle.style.borderRadius = "50%";
+      sparkle.style.boxShadow = "0 0 5px gold";
+      sparkle.style.left = `${e.pageX}px`;
+      sparkle.style.top = `${e.pageY}px`;
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 300);
+    });
+  </script> -->
+
 </body>
 
 </html>
