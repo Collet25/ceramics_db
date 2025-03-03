@@ -7,7 +7,7 @@
     <?php include("../css.php") ?>
     <style>
         body {
-            background-image: url('/corporate/assets/img/bg.png');
+            background-image: url('../logo-img/bg2.webp');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;

@@ -219,9 +219,10 @@ $result = $stmt->get_result();
 
             <!-- ******商品列表********* -->
             <div class="container">
-              <div class="page-header ">
+              <div class="page-header">
                 <div class="breadcrumb">
-                  <img src="../logo-img/head-icon3.png" alt="" class="head-icon mt-2">
+                  <img src="../logo-img/head-icon.png" alt="" class="head-icon mx-1 mt-2">
+                  <!-- <i class="bi bi-shop-window fs-2 mt-1 mx-2"></i> -->
                   <!-- <a href="../index.php">首頁</a> / 商品管理 -->
                 </div>
                 <h1 class="page-title ms-2">商品列表</h1>
