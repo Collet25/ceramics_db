@@ -14,25 +14,47 @@ $now=date("Y-m-d H:i:s");
 $valid=1;
 
 // 上傳圖片
-$target_dir = "../instructor_img"; // 圖片存放目錄
-$target_file = $target_dir . basename($_FILES["teacherImg"]["name"]);
+$target_dir1 = "../instructor_img/"; // 圖片存放目錄
+$target_file1 = $target_dir1 . basename($_FILES["teacherImg"]["name"]);
 
 // 確保只允許上傳圖片
-$allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
-if (!in_array($_FILES["teacherImg"]["type"], $allowed_types)) {
+$allowed_types1 = ['image/jpeg', 'image/png', 'image/gif'];
+if (!in_array($_FILES["teacherImg"]["type"], $allowed_types1)) {
     die("只允許上傳 JPG, PNG, GIF 圖片");
 }
 
-move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $target_file);
+move_uploaded_file($_FILES["teacherImg"]["tmp_name"], $target_file1);
 
-$sql = "INSERT INTO instructor (name, img, gender, phone, email, bio, created_at, valid) 
- VALUES ('$name', '$target_file', '$gender', '$phone', '$email', '$bio', '$now', '$valid')";
+$sql1 = "INSERT INTO instructor (name, img, gender, phone, email, bio, created_at, valid) 
+ VALUES ('$name', '$target_file1', '$gender', '$phone', '$email', '$bio', '$now', '$valid')";
 
-if ($conn->query($sql) === TRUE) {
+
+if ($conn->query($sql1) === TRUE) {
     $last_id = $conn->insert_id;
     echo "新資料輸入成功, id 為 $last_id";
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sql1 . "<br>" . $conn->error;
+}
+
+$artname=$_POST["artName"];
+$artbio=$_POST["artBio"];
+// 上傳圖片
+$target_dir2 = "../artwork_img/"; // 圖片存放目錄
+$target_file2 = $target_dir2 . basename($_FILES["artImg"]["name"]);
+// 確保只允許上傳圖片
+$allowed_types2 = ['image/jpeg', 'image/png', 'image/gif'];
+if (!in_array($_FILES["artImg"]["type"], $allowed_types2)) {
+    die("只允許上傳 JPG, PNG, GIF 圖片");
+}
+move_uploaded_file($_FILES["artImg"]["tmp_name"], $target_file2);
+
+$sql2= "INSERT INTO artwork (artname, artBio, image, instructor_id)
+VALUES ('$artname', '$artbio', '$target_file2', '$last_id')";
+
+if ($conn->query($sql2) === TRUE) {
+    echo "藝術作品插入成功";
+} else {
+    echo "Error: " . $sql2 . "<br>" . $conn->error;
 }
 
 $conn->close();

@@ -6,14 +6,10 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
-$sql = "SELECT instructor.*,
-               artwork.artname,
-               artwork.image AS artwork_image,
-               artwork.artbio
-        FROM instructor
-        LEFT JOIN artwork ON instructor.id = artwork.instructor_id
-        WHERE instructor.id = $id
-        AND instructor.valid = 1";
+$sql = "SELECT instructor.*, artwork.artname, artwork.image AS artwork_image
+FROM instructor
+LEFT JOIN artwork ON instructor.id = artwork.instructor_id
+WHERE instructor.id = $id AND instructor.valid = 0";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $instructorCount = $result->num_rows;
@@ -46,8 +42,8 @@ $instructorCount = $result->num_rows;
                 <h2 class="text-center mb-4"><?= $row["name"] ?>的個人資訊</h2>
                 <!-- 按鈕區域 -->
                 <div class=" d-flex align-items-center mb-2">
-                    <a href="./instructors.php" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>返回老師名單</a>
-                    <a href="./instructor-edit.php?id=<?= $row["id"] ?>" class="btn btn-secondary">編輯</a>
+                    <a href="./delete-instructors.php?id=<?= $row["id"] ?>" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>返回停權名單</a>
+                    <!-- <a href="./instructor-edit.php?id=<?= $row["id"] ?>" class="btn btn-secondary">編輯</a> -->
                 </div>
                 <!-- 上-->
                 <div class="card mb-3">
@@ -94,7 +90,7 @@ $instructorCount = $result->num_rows;
                                     <dt class="col-sm-4 fs-3">作品名稱 :</dt>
                                     <dd class="col-sm-8 fs-3 fw-bold"><?= $row["artname"] ?: "尚未提供" ?></dd>
                                     <dt class="col-sm-4 fs-3">作品簡介 :</dt>
-                                    <dd class="col-sm-8 fs-4"><?= $row["artbio"] ?></dd>
+                                    <dd class="col-sm-8 fs-3"></dd>
                                 </dl>
                             </div>
                         </div>
