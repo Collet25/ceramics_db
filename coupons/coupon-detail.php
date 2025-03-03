@@ -28,6 +28,7 @@ $userCount = $result->num_rows;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>查看優惠券</title>
     <style>
         /* *{
@@ -37,7 +38,7 @@ $userCount = $result->num_rows;
             display: flex;
             flex-direction: column;
             max-width: 600px;
-            background: #f8f9fa;
+            /* background: #f8f9fa; */
             /* border-radius: 12px; */
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -57,15 +58,15 @@ $userCount = $result->num_rows;
             border-bottom: #7B2D12 2px solid;
         }
 
-        .coupon-content {
+        /* .coupon-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             padding: 16px;
-        }
+        } */
 
         .coupon-section {
-            width: 48%;
+            width: 46%;
             /* 讓資訊橫向排列 */
             margin-bottom: 8px;
             display: flex;
@@ -75,11 +76,11 @@ $userCount = $result->num_rows;
         .label {
             font-weight: bold;
             color: #333;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .value {
-            font-size: 22px;
+            font-size: 19px;
             color: #EA580C;
         }
 
@@ -131,7 +132,7 @@ $userCount = $result->num_rows;
         <?php include("../navbar.php") ?>
 
         <div class="container-fluid d-flex justify-content-center py-4 px-5">
-            <div class="card col-12 col-lg-10" style="min-height: 70vh;">
+            <div class="card col-12 col-lg-8">
                 <div class="card-header pt-3">
                     <div class="d-flex justify-content-between">
                         <div class=" mb-3">
@@ -151,56 +152,69 @@ $userCount = $result->num_rows;
                     </div>
                 </div>
 
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <div class="row align-items-center flex-column">
-                        <div class="col-6 col-sm-6 col-md-6 col-lg-12">
-                            <div class=" fs-6">
-                                <div class="row justify-content-center">
-                                    <?php if ($userCount > 0): ?>
-                                        <div class="coupon-card m-1">
-                                            <div class="coupon-header position-relative text-center">
-                                                <!-- 標題與折扣碼置中 -->
-                                                <h2 class="mb-1"><?= $row["name"] ?></h2>
-                                                <p class="mb-0 fs-5 ">折扣碼：<strong><?= $row["code"] ?></strong></p>
-                                            </div>
-
-                                            <div class="coupon-content d-flex justify-content-center">
-                                                <div class="coupon-section">
-                                                    <span class="label">類型：</span>
-                                                    <span class="value"><?= $row["discountType"] ?></span>
-                                                </div>
-                                                <div class="coupon-section">
-                                                    <span class="label">折扣：</span>
-                                                    <span class="value"><?= $row["discount"] ?></span>
-                                                </div>
-                                                <div class="coupon-section">
-                                                    <span class="label">低消金額：</span>
-                                                    <span class="value">$<?= number_format($row["minSpend"]) ?></span>
-                                                </div>
-                                                <div class="coupon-section">
-                                                    <span class="label">發行數量：</span>
-                                                    <span class="value"><?= number_format($row["quantity"]) ?> 張</span>
-                                                </div>
-                                                <div class="coupon-section">
-                                                    <span class="label">適用範圍：</span>
-                                                    <span class="value"><?= $row["categories"] ?></span>
-                                                </div>
-                                                <div class="coupon-section">
-                                                    <span class="label">有效日期：</span>
-                                                    <span class="value"><?= $row["startDate"] ?> ~ <?= $row["endDate"] ?></span>
-                                                </div>
-                                            </div>
-
+                <div class="card-body d-flex justify-content-center">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="fs-6">
+                                <?php if ($userCount > 0): ?>
+                                    <div class="coupon-card m-1">
+                                        <div class="coupon-header text-center">
+                                            <h4 class="mb-1"><?= htmlspecialchars($row["name"]) ?></h4>
+                                            <p class="mb-0">折扣碼：<strong><?= htmlspecialchars($row["code"]) ?></strong></p>
                                         </div>
-                                </div>
 
-                            <?php else: ?>
-                                <h2>⚠ 使用者不存在</h2>
-                            <?php endif; ?>
+                                        <div class=" d-flex flex-wrap justify-content-center gap-3">
+                                            <div class="coupon-section">
+                                                <span class="label">ID：</span>
+                                                <span class="value"><?= ($row["id"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">適用範圍：</span>
+                                                <span class="value"><?= ($row["categories"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">類型：</span>
+                                                <span class="value" id="discountType"><?= ($row["discountType"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">折扣：</span>
+                                                <span class="value" id="discount"><?= ($row["discount"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">低消金額：</span>
+                                                <span class="value">$<?= ($row["minSpend"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">發行數量：</span>
+                                                <span class="value"><?= ($row["quantity"]) ?> 張</span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">有效日期：</span>
+                                                <span class="value"><?= htmlspecialchars($row["startDate"]) ?> ~ <?= htmlspecialchars($row["endDate"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">建立時間：</span>
+                                                <span class="value"><?= htmlspecialchars($row["created_at"]) ?></span>
+                                            </div>
+                                            <div class="coupon-section">
+                                                <span class="label">狀態：</span>
+                                                <span class="value"><?= htmlspecialchars($row["status"]) ?></span>
+                                            </div>
+                                            <!-- 為了排版方便增加同底色的欄位 -->
+                                            <div class="coupon-section text-white">
+                                                <span class="label text-white">狀態：</span>
+                                                <span class="value text-white"><?= htmlspecialchars($row["status"]) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <h2 class="text-center text-danger">⚠ 使用者不存在</h2>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -215,19 +229,23 @@ $userCount = $result->num_rows;
     <!-- 動態替換$ & % -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".coupon-content").forEach(function(coupon) {
-                let typeElement = coupon.querySelector(".coupon-section .value"); // 類型
-                let discountElement = typeElement?.parentElement?.nextElementSibling?.querySelector(".value"); // 折扣
+            console.log("DOM 已加載，開始執行 JS");
 
-                if (typeElement && discountElement) {
-                    let discountType = typeElement.innerText.trim();
-                    let discountValue = parseFloat(discountElement.innerText.trim());
+            let typeElement = document.getElementById("discountType");
+            let discountElement = document.getElementById("discount");
 
-                    if (!isNaN(discountValue)) {
-                        discountElement.innerText = (discountType === "現金") ? `$${discountValue}` : `${discountValue}%`;
-                    }
+            console.log("找到類型:", typeElement ? typeElement.innerText.trim() : "無");
+            console.log("找到折扣:", discountElement ? discountElement.innerText.trim() : "無");
+
+            if (typeElement && discountElement) {
+                let discountType = typeElement.innerText.trim();
+                let discountValue = parseFloat(discountElement.innerText.trim());
+
+                if (!isNaN(discountValue)) {
+                    discountElement.innerText = (discountType === "現金") ? `$${discountValue}` : `${discountValue}%`;
+                    console.log("更新後的折扣:", discountElement.innerText);
                 }
-            });
+            }
         });
     </script>
 
