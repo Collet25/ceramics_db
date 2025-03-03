@@ -120,7 +120,7 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>
         優惠券管理
     </title>
@@ -262,13 +262,13 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
                                             <div class="col-auto">
                                                 <label class="form-label mb-0 h6">有效日期範圍</label>
                                             </div>
-                                            <div class="row align-items-center ms-1">
+                                            <div class="row align-items-center">
                                                 <div class="col-5">
-                                                    <input type="date" class="form-control mb-1" id="filterStartDate" name="startDate"
+                                                    <input type="date" class="form-control " id="filterStartDate" name="startDate"
                                                         value="<?= isset($_GET["startDate"]) ? htmlspecialchars($_GET["startDate"], ENT_QUOTES, 'UTF-8') : '' ?>"
                                                         style="cursor: pointer;">
                                                 </div>
-                                                <div class="col-1">至</div>
+                                                <div class="col-1"> 至</div>
                                                 <div class="col-5">
                                                     <input type="date" class="form-control" id="filterEndDate" name="endDate"
                                                         value="<?= isset($_GET["endDate"]) ? htmlspecialchars($_GET["endDate"], ENT_QUOTES, 'UTF-8') : '' ?>"
