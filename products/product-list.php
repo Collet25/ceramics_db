@@ -100,6 +100,8 @@ $result = $stmt->get_result();
   </title>
   <?php include("../css.php"); ?>
   <link rel="stylesheet" href="../products/style_p.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   <style>
@@ -463,26 +465,56 @@ $result = $stmt->get_result();
       // 刪除商品
       $(".delete-btn").click(function() {
         let id = $(this).data("id");
-        if (confirm("確定要刪除這個商品嗎？")) {
-          $.ajax({
-            url: "product-delete.php",
-            method: "POST",
-            data: {
-              id: id
-            },
-            success: function(response) {
-              if (response.success) {
-                alert("刪除成功");
-                location.reload();
-              } else {
-                alert("刪除失敗：" + response.message);
+        
+        Swal.fire({
+          title: '確定要刪除嗎？',
+          text: "此操作將會將商品移至回收桶",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#9A3412',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '刪除',
+          cancelButtonText: '取消'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "product-delete.php",
+              method: "POST",
+              data: {
+                id: id
+              },
+              success: function(response) {
+                if (response.success) {
+                  Swal.fire({
+                    title: '刪除成功！',
+                    text: '商品已移至回收桶',
+                    icon: 'success',
+                    confirmButtonColor: '#9A3412'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      location.reload();
+                    }
+                  });
+                } else {
+                  Swal.fire({
+                    title: '刪除失敗',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonColor: '#9A3412'
+                  });
+                }
+              },
+              error: function() {
+                Swal.fire({
+                  title: '系統錯誤',
+                  text: '刪除過程發生錯誤',
+                  icon: 'error',
+                  confirmButtonColor: '#9A3412'
+                });
               }
-            },
-            error: function() {
-              alert("刪除失敗：系統錯誤");
-            }
-          });
-        }
+            });
+          }
+        });
       });
     });
   </script>

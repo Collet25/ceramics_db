@@ -38,6 +38,8 @@ $result = $stmt->get_result();
     <title>已刪除商品</title>
     <?php include("../css.php"); ?>
     <link rel="stylesheet" href="../products/style_p.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .head-icon {
@@ -206,54 +208,107 @@ $result = $stmt->get_result();
         // 還原商品
         $(".restore-btn").click(function() {
             let id = $(this).data("id");
-            if (confirm("確定要還原這個商品嗎？")) {
-                $.ajax({
-                    url: "product-restore.php",
-                    method: "POST",
-                    data: { id: id },
-                    dataType: "json",
-                    success: function(response) {
-                        console.log('Response:', response);
-                        if (response.success) {
-                            alert("還原成功");
-                            location.reload();
-                        } else {
-                            alert("還原失敗：" + response.message);
+            Swal.fire({
+                title: '確定要還原嗎？',
+                text: '商品將會回到商品列表',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9A3412',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '還原',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "product-restore.php",
+                        method: "POST",
+                        data: { id: id },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: '還原成功！',
+                                    text: '商品已回到商品列表',
+                                    icon: 'success',
+                                    confirmButtonColor: '#9A3412'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: '還原失敗',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonColor: '#9A3412'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: '系統錯誤',
+                                text: '還原過程發生錯誤',
+                                icon: 'error',
+                                confirmButtonColor: '#9A3412'
+                            });
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Status:', status);
-                        console.log('Error:', error);
-                        console.log('Response:', xhr.responseText);
-                        alert("還原失敗：" + (xhr.responseText ? JSON.parse(xhr.responseText).message : "系統錯誤"));
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
 
         // 永久刪除
         $(".delete-permanent-btn").click(function() {
             let id = $(this).data("id");
-            if (confirm("確定要永久刪除這個商品嗎？此操作無法復原！")) {
-                $.ajax({
-                    url: "product-delete-permanent.php",
-                    method: "POST",
-                    data: { id: id },
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.success) {
-                            alert("永久刪除成功");
-                            location.reload();
-                        } else {
-                            alert("刪除失敗：" + response.message);
+            Swal.fire({
+                title: '確定要永久刪除嗎？',
+                text: '此操作無法復原！',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9A3412',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '刪除',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "product-delete-permanent.php",
+                        method: "POST",
+                        data: { id: id },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    title: '刪除成功！',
+                                    text: '商品已永久刪除',
+                                    icon: 'success',
+                                    confirmButtonColor: '#9A3412'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: '刪除失敗',
+                                    text: response.message,
+                                    icon: 'error',
+                                    confirmButtonColor: '#9A3412'
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                title: '系統錯誤',
+                                text: '刪除過程發生錯誤',
+                                icon: 'error',
+                                confirmButtonColor: '#9A3412'
+                            });
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                        alert("刪除失敗：系統錯誤");
-                    }
-                });
-            }
+                    });
+                }
+            });
         });
     });
     </script>

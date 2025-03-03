@@ -29,6 +29,8 @@ $origins_result = $conn->query($sql_origins);
     新增商品
   </title>
   <?php include("../css.php"); ?>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     .preview-image {
       max-width: 100%;
@@ -123,7 +125,7 @@ $origins_result = $conn->query($sql_origins);
                 
               </div>
 
-              <form action="handle-create.php" method="POST" enctype="multipart/form-data">
+              <form id="createForm" action="handle-create.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                   <!-- 左側圖片區 -->
                   <div class="col-md-4">
@@ -201,7 +203,7 @@ $origins_result = $conn->query($sql_origins);
                       </div>
 
                       <div class="mt-4">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="confirmSubmit()">
                           <i class="bi bi-check-lg"></i> 儲存
                         </button>
                         <button type="button" class="btn btn-outline-secondary" onclick="confirmCancel()">
@@ -270,10 +272,38 @@ $origins_result = $conn->query($sql_origins);
       });
     });
 
+    function confirmSubmit() {
+      Swal.fire({
+        title: '確定要儲存嗎？',
+        text: '請確認商品資料是否正確',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9A3412',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '儲存',
+        cancelButtonText: '返回'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('createForm').submit();
+        }
+      });
+    }
+
     function confirmCancel() {
-      if (confirm('確定要取消嗎？已輸入的資料將會遺失')) {
-        window.location.href = 'product-list.php';
-      }
+      Swal.fire({
+        title: '確定要取消嗎？',
+        text: '已輸入的資料將會遺失',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#9A3412',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: '返回'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'product-list.php';
+        }
+      });
     }
   </script>
 </body>

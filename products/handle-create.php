@@ -1,6 +1,9 @@
 <?php
 require_once("../ceramics_db_connect.php");
 
+// 設置響應頭
+header('Content-Type: application/json');
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     try {
         // 設定上傳目錄
@@ -89,18 +92,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             throw new Exception("商品新增失敗：" . $stmt->error);
         }
 
-        echo "<script>
-            alert('商品新增成功！');
-            location.href = 'product-list.php';
-        </script>";
+        // 成功時返回
+        echo json_encode([
+            'success' => true,
+            'message' => '商品新增成功'
+        ]);
+        exit;
 
     } catch (Exception $e) {
-        // 顯示詳細的錯誤訊息
-        echo "<script>
-            console.error('" . addslashes($e->getMessage()) . "');
-            alert('錯誤：" . addslashes($e->getMessage()) . "');
-            history.back();
-        </script>";
+        // 失敗時返回
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage()
+        ]);
+        exit;
     }
 }
 ?>

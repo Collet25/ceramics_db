@@ -55,6 +55,8 @@ $subcategories_result = $stmt->get_result();
         修改商品
     </title>
     <?php include("../css.php"); ?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .preview-image {
             max-width: 100%;
@@ -148,7 +150,7 @@ $subcategories_result = $stmt->get_result();
 
                         </div>
 
-                        <form action="handle-edit.php" method="POST" enctype="multipart/form-data">
+                        <form id="editForm" action="handle-edit.php" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <!-- 左側圖片區 -->
                                 <div class="col-md-4">
@@ -255,7 +257,7 @@ $subcategories_result = $stmt->get_result();
 
 
                                         <div class="mt-4">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary" onclick="confirmSubmit()">
                                                 <i class="bi bi-check-lg"></i> 更新
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary" onclick="confirmCancel()">
@@ -323,10 +325,38 @@ $subcategories_result = $stmt->get_result();
             });
         });
 
+        function confirmSubmit() {
+            Swal.fire({
+                title: '確定要更新嗎？',
+                text: '請確認修改的資料是否正確',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9A3412',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '更新',
+                cancelButtonText: '返回'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('editForm').submit();
+                }
+            });
+        }
+
         function confirmCancel() {
-            if (confirm('確定要取消嗎？修改的資料將不會被儲存')) {
-                window.location.href = 'product-list.php';
-            }
+            Swal.fire({
+                title: '確定要取消嗎？',
+                text: '修改的資料將不會被儲存',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#9A3412',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '確定',
+                cancelButtonText: '返回'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'product-list.php';
+                }
+            });
         }
     </script>
 
