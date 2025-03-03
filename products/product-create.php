@@ -32,31 +32,87 @@ $origins_result = $conn->query($sql_origins);
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
+    body {
+      cursor: url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png") 16 16, auto;
+    }
+
+    .product-image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #ffffff, #f5f5f5);
+      box-shadow: 0 10px 30px rgba(154, 52, 18, 0.08);
+      border: 1px solid rgba(154, 52, 18, 0.05);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .product-image-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(154, 52, 18, 0.1);
+    }
+
     .preview-image {
       max-width: 100%;
       height: auto;
-      margin-top: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .preview-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(154, 52, 18, 0.15);
     }
 
     .image-section {
-      background-color: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
+      background: linear-gradient(165deg, rgba(255, 245, 231, 0.95), rgba(245, 227, 195, 0.95));
+      padding: 25px;
+      border-radius: 25px;
       height: 100%;
-      text-align: center;
+      box-shadow: 0 0 20px rgba(154, 52, 18, 0.05);
     }
 
     .form-section {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(165deg, rgba(255, 245, 231, 0.95), rgba(245, 227, 195, 0.95));
+      padding: 25px;
+      border-radius: 25px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(154, 52, 18, 0.05);
+    }
+
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(234, 88, 12, 0.1), transparent 70%);
+      pointer-events: none;
+      border-radius: 25px;
     }
 
     .page-header {
+      position: relative;
+      padding-bottom: 1rem;
       margin-bottom: 2rem;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #9A3412, #EA580C);
+      border-radius: 2px;
     }
 
     .breadcrumb {
@@ -68,16 +124,118 @@ $origins_result = $conn->query($sql_origins);
     .breadcrumb a {
       color: #6c757d;
       text-decoration: none;
+      transition: all 0.3s ease;
     }
 
     .breadcrumb a:hover {
-      color: #0d6efd;
+      color: #9A3412;
     }
 
     .page-title {
-      font-size: 1.75rem;
-      font-weight: bold;
-      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #9A3412;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #9A3412;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+      border: 1px solid rgba(154, 52, 18, 0.2);
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #9A3412;
+      box-shadow: 0 0 0 0.2rem rgba(154, 52, 18, 0.15);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #9A3412, #EA580C);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.3);
+      background: linear-gradient(135deg, #EA580C, #9A3412);
+    }
+
+    .btn-outline-secondary {
+      border: 2px solid #9A3412;
+      color: #9A3412;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+      background: #9A3412;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+    }
+
+    .form-text {
+      color: #9A3412;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 響應式優化 */
+    @media (max-width: 768px) {
+      .form-section, .image-section {
+        margin-top: 1.5rem;
+        padding: 1.2rem;
+      }
+      
+      .form-label {
+        font-size: 0.9rem;
+      }
+      
+      .preview-image {
+        max-width: 100%;
+      }
+      
+      .page-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .swal2-popup {
+      border-radius: 15px;
+    }
+
+    .swal2-title {
+      color: #9A3412 !important;
+    }
+
+    .swal2-confirm {
+      background: linear-gradient(135deg, #9A3412, #EA580C) !important;
+    }
+
+    .swal2-cancel {
+      background: #dc3545 !important;
     }
   </style>
 
@@ -284,7 +442,65 @@ $origins_result = $conn->query($sql_origins);
         cancelButtonText: '返回'
       }).then((result) => {
         if (result.isConfirmed) {
-          document.getElementById('createForm').submit();
+          // 使用FormData获取表单数据
+          let formData = new FormData(document.getElementById('createForm'));
+          
+          // 使用AJAX提交表单
+          $.ajax({
+            url: "handle-create.php",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+              try {
+                let result = JSON.parse(response);
+                if(result.success) {
+                  // 成功时显示成功消息
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '商品新增成功',
+                    text: result.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                    backdrop: `rgba(0,0,0,0.4)`,
+                    background: '#fff',
+                    customClass: {
+                      title: 'text-orange-700',
+                      popup: 'rounded-lg shadow-xl'
+                    }
+                  }).then(() => {
+                    window.location.href = 'product-list.php';
+                  });
+                } else {
+                  // 失败时显示错误消息
+                  Swal.fire({
+                    icon: 'error',
+                    title: '新增失敗',
+                    text: result.message,
+                    confirmButtonColor: '#9A3412'
+                  });
+                }
+              } catch(e) {
+                console.error('JSON parsing error:', e);
+                Swal.fire({
+                  icon: 'error',
+                  title: '系統錯誤',
+                  text: '資料處理失敗',
+                  confirmButtonColor: '#9A3412'
+                });
+              }
+            },
+            error: function(xhr, status, error) {
+              Swal.fire({
+                icon: 'error',
+                title: '系統錯誤',
+                text: '儲存過程發生錯誤',
+                confirmButtonColor: '#9A3412'
+              });
+            }
+          });
         }
       });
     }

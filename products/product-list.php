@@ -118,9 +118,164 @@ $result = $stmt->get_result();
     }
 
     .filter-section {
-      background-color: #f8f9fa;
-      padding: 15px;
-      border-radius: 8px;
+      background: linear-gradient(135deg, #F5E3C3 0%, #FFF5E7 100%);
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.08);
+      margin-bottom: 30px;
+      border: 1px solid rgba(154, 52, 18, 0.1);
+    }
+
+    .filter-section .row {
+      align-items: center;
+    }
+
+    .filter-section .form-select,
+    .filter-section .form-control {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(154, 52, 18, 0.15);
+        border-radius: 10px;
+        height: 45px;
+        font-size: 0.95rem;
+        color: #9A3412;
+        transition: all 0.3s ease;
+        padding: 0 15px;
+        line-height: 41px; /* 45px - 2px * 2 (border) */
+    }
+
+    .filter-section .form-select {
+        padding-right: 2.5rem;
+    }
+
+    /* 重設下拉選單樣式 */
+    .filter-section select.form-select {
+        text-align: left;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    /* 選項樣式重設 */
+    .filter-section select.form-select option {
+        padding: 8px 15px;
+        height: auto;
+        line-height: 1.5;
+        background-color: #fff;
+        color: #9A3412;
+        font-size: 0.95rem;
+    }
+
+    /* 下拉選單展開時的選項樣式 */
+    .filter-section select.form-select:focus option {
+        background-color: #fff;
+    }
+
+    .filter-section select.form-select option:hover,
+    .filter-section select.form-select option:focus,
+    .filter-section select.form-select option:active {
+        background-color: rgba(154, 52, 18, 0.1);
+    }
+
+    /* 移除預設的下拉箭頭並自定義 */
+    .filter-section .form-select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239A3412' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 12px;
+    }
+
+    /* 確保選項容器有足夠的空間 */
+    .filter-section select.form-select optgroup,
+    .filter-section select.form-select option {
+        margin: 4px 0;
+        padding: 8px 15px;
+    }
+
+    /* 修正Firefox特定的樣式問題 */
+    @-moz-document url-prefix() {
+        .filter-section select.form-select option {
+            padding: 8px 15px;
+            line-height: 1.5;
+        }
+    }
+
+    /* 修正Chrome特定的樣式問題 */
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        .filter-section select.form-select option {
+            padding: 8px 15px;
+            line-height: 1.5;
+        }
+    }
+
+    /* 修正Safari特定的樣式問題 */
+    @supports (-webkit-appearance: none) {
+        .filter-section select.form-select option {
+            padding: 8px 15px;
+            line-height: 1.5;
+        }
+    }
+
+    .filter-label {
+      font-size: 0.9rem;
+      color: #9A3412;
+      margin-bottom: 8px;
+      font-weight: 500;
+      display: block;
+    }
+
+    /* 搜尋按鈕優化 */
+    .search-btn-effect {
+      background: #9A3412;
+      border: none;
+      height: 45px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      margin-top: 0;
+    }
+
+    .search-btn-effect:hover {
+      background: #EA580C;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(154, 52, 18, 0.2);
+    }
+
+    .search-btn-effect:active {
+      transform: translateY(0);
+    }
+
+    .search-btn-effect.clicked {
+      transform: scale(0.95);
+      opacity: 0.9;
+    }
+
+    /* 搜尋框優化 */
+    .filter-section .form-control::placeholder {
+      color: #9CA3AF;
+      opacity: 0.7;
+    }
+
+    /* 響應式優化 */
+    @media (max-width: 768px) {
+      .filter-section {
+        padding: 20px 15px;
+      }
+      
+      .filter-section .row > div {
+        margin-bottom: 15px;
+      }
+
+      .search-btn-effect {
+        margin-top: 0;
+      }
+    }
+
+    /* 分類區塊容器優化 */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
       margin-bottom: 20px;
     }
 
@@ -223,6 +378,305 @@ $result = $stmt->get_result();
     transform: scale(1);
     transition: transform 0s;
   }
+
+    /* 添加動畫效果 */
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 按鈕懸停效果 */
+    .btn-icon {
+        transition: transform 0.2s ease;
+    }
+
+    .btn-icon:hover {
+        transform: scale(1.1);
+    }
+
+    /* 表格行懸停效果 */
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+        background-color: rgba(245, 227, 195, 0.2) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 商品圖片懸停效果 */
+    .product-img {
+        transition: transform 0.3s ease;
+    }
+    
+    .product-img:hover {
+        transform: scale(1.2);
+    }
+
+    /* 搜尋按鈕點擊效果 */
+    .search-btn-effect {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .search-btn-effect:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, .5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+    }
+
+    .search-btn-effect:focus:not(:active)::after {
+        animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(0, 0);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(100, 100);
+            opacity: 0;
+        }
+    }
+
+    /* 整體頁面優化 */
+    .container-fluid {
+      padding: 2rem;
+    }
+
+    /* 頁面標題優化 */
+    .page-header {
+      position: relative;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #9A3412, #EA580C);
+      border-radius: 2px;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #9A3412;
+      margin-bottom: 0.5rem;
+    }
+
+    /* 表格優化 */
+    .table {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(154, 52, 18, 0.05);
+      width: 100%;
+    }
+
+    .table thead {
+      background: linear-gradient(90deg, #9A3412, #EA580C);
+      width: 100%;
+    }
+
+    .table thead tr {
+      background: none;
+    }
+
+    .table thead th {
+      color: #fff;
+      font-weight: 500;
+      padding: 1rem;
+      border: none;
+      font-size: 0.95rem;
+      background: none;
+    }
+
+    .table tbody tr {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(154, 52, 18, 0.1);
+      width: 100%;
+    }
+
+    .table tbody tr td {
+      border-bottom: 1px solid rgba(154, 52, 18, 0.1);
+    }
+
+    .table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-responsive {
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    /* 商品圖片優化 */
+    .product-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .product-img:hover {
+      transform: scale(1.5);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* 按鈕優化 */
+    .btn-primary {
+      background: linear-gradient(135deg, #9A3412, #EA580C);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.3);
+      background: linear-gradient(135deg, #EA580C, #9A3412);
+    }
+
+    .btn-outline-secondary {
+      border: 2px solid #9A3412;
+      color: #9A3412;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+      background: #9A3412;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+    }
+
+    /* 操作按鈕優化 */
+    .action-buttons .btn-icon {
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      border-radius: 8px;
+      margin: 0 3px;
+      transition: all 0.3s ease;
+    }
+
+    .action-buttons .btn-icon:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-outline-success {
+      color: #10B981;
+      border-color: #10B981;
+    }
+
+    .btn-outline-success:hover {
+      background: #10B981;
+      color: #fff;
+    }
+
+    .btn-outline-primary {
+      color: #3B82F6;
+      border-color: #3B82F6;
+    }
+
+    .btn-outline-primary:hover {
+      background: #3B82F6;
+      color: #fff;
+    }
+
+    .btn-outline-danger {
+      color: #EF4444;
+      border-color: #EF4444;
+    }
+
+    .btn-outline-danger:hover {
+      background: #EF4444;
+      color: #fff;
+    }
+
+    /* 分頁優化 */
+    .pagination {
+      gap: 5px;
+    }
+
+    .page-link {
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: #9A3412;
+      transition: all 0.3s ease;
+    }
+
+    .page-link:hover {
+      background: rgba(154, 52, 18, 0.1);
+      color: #9A3412;
+      transform: translateY(-2px);
+    }
+
+    .page-item.active .page-link {
+      background: linear-gradient(135deg, #9A3412, #EA580C);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(154, 52, 18, 0.2);
+    }
+
+    /* 統計資訊優化 */
+    .stats-info {
+      background: linear-gradient(135deg, #F5E3C3, #FFF5E7);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      color: #9A3412;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(154, 52, 18, 0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    /* 響應式優化 */
+    @media (max-width: 768px) {
+      .container-fluid {
+        padding: 1rem;
+      }
+
+      .table td, .table th {
+        padding: 0.75rem;
+      }
+
+      .product-img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .action-buttons .btn-icon {
+        width: 30px;
+        height: 30px;
+      }
+    }
   </style>
 
 </head>
@@ -262,9 +716,9 @@ $result = $stmt->get_result();
 
             <!-- 篩選器 -->
             <div class="filter-section">
-              <form class="row  mt-3 mx-2" method="GET">
-
+              <form class="row g-3" method="GET">
                 <div class="col-md-2">
+                  <!-- <label class="filter-label" for="category">商品分類</label> -->
                   <select class="form-select" name="category" id="category">
                     <option value="">所有分類</option>
                     <?php while ($category = $categories_result->fetch_assoc()): ?>
@@ -276,12 +730,14 @@ $result = $stmt->get_result();
                   </select>
                 </div>
                 <div class="col-md-2">
+                  <!-- <label class="filter-label" for="subcategory">子分類</label> -->
                   <select class="form-select" name="subcategory" id="subcategory">
                     <option value="">所有子分類</option>
                   </select>
                 </div>
                 <div class="col-md-2">
-                  <select class="form-select" name="sort">
+                  <!-- <label class="filter-label" for="sort">排序方式</label> -->
+                  <select class="form-select" name="sort" id="sort">
                     <option value="newest" <?= $sort === "newest" ? "selected" : "" ?>>最新上架</option>
                     <option value="oldest" <?= $sort === "oldest" ? "selected" : "" ?>>最舊上架</option>
                     <option value="price_high" <?= $sort === "price_high" ? "selected" : "" ?>>價格高到低</option>
@@ -289,23 +745,21 @@ $result = $stmt->get_result();
                   </select>
                 </div>
                 <div class="col-md-2">
-                  <select class="form-select" name="per_page">
+                  <!-- <label class="filter-label" for="per_page">每頁顯示</label> -->
+                  <select class="form-select" name="per_page" id="per_page">
                     <option value="10" <?= $per_page === 10 ? "selected" : "" ?>>每頁 10 筆</option>
                     <option value="20" <?= $per_page === 20 ? "selected" : "" ?>>每頁 20 筆</option>
                     <option value="50" <?= $per_page === 50 ? "selected" : "" ?>>每頁 50 筆</option>
                   </select>
                 </div>
-
                 <div class="col-md-3">
-                  <input class="form-control" type="search" name="search"
-                    placeholder="搜尋商品名稱或描述"
+                  <!-- <label class="filter-label" for="search">搜尋商品</label> -->
+                  <input class="form-control" type="search" name="search" id="search"
+                    placeholder="輸入商品名稱或描述..."
                     value="<?= isset($_GET["search"]) ? htmlspecialchars($_GET["search"]) : "" ?>">
                 </div>
-
                 <div class="col-md-1">
-                  <!-- id="confettiBtn" -->
-                   <!-- glow-button -->
-                  <button class="btn btn-primary w-100 glow-button" type="submit" >
+                  <button class="btn w-100 search-btn-effect mt-3" type="submit" id="searchBtn">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
@@ -313,17 +767,16 @@ $result = $stmt->get_result();
             </div>
 
             <div class="d-flex justify-content-between mb-3">
-              <div>
+              <div class="stats-info">
+                <i class="bi bi-file-text me-2"></i>
                 共 <?= $totalRows ?> 筆商品，目前顯示第 <?= $page ?> 頁，每頁 <?= $per_page ?> 筆
               </div>
               <div>
-                
                 <a href="product-create.php" class="btn btn-primary">
-                  <i class="bi bi-plus-lg"></i> 新增商品
+                  <i class="bi bi-plus-lg me-1"></i> 新增商品
                 </a>
-
-                <a href="product-trash.php" class="btn btn-outline-secondary me-2">
-                  <i class="bi bi-trash"></i> 回收桶
+                <a href="product-trash.php" class="btn btn-outline-secondary ms-2">
+                  <i class="bi bi-trash me-1"></i> 回收桶
                 </a>
               </div>
             </div>
@@ -498,8 +951,9 @@ $result = $stmt->get_result();
       <?php endif; ?>
 
       // 刪除商品
-      $(".delete-btn").click(function() {
+      $(".delete-btn").on('click', function() {
         let id = $(this).data("id");
+        console.log("Delete button clicked, ID:", id);
         
         Swal.fire({
           title: '確定要刪除嗎？',
@@ -518,7 +972,9 @@ $result = $stmt->get_result();
               data: {
                 id: id
               },
+              dataType: 'json',
               success: function(response) {
+                console.log("Response:", response);
                 if (response.success) {
                   Swal.fire({
                     title: '刪除成功！',
@@ -526,20 +982,19 @@ $result = $stmt->get_result();
                     icon: 'success',
                     confirmButtonColor: '#9A3412'
                   }).then((result) => {
-                    if (result.isConfirmed) {
-                      location.reload();
-                    }
+                    location.reload();
                   });
                 } else {
                   Swal.fire({
                     title: '刪除失敗',
-                    text: response.message,
+                    text: response.message || '刪除過程發生錯誤',
                     icon: 'error',
                     confirmButtonColor: '#9A3412'
                   });
                 }
               },
-              error: function() {
+              error: function(xhr, status, error) {
+                console.log("Error:", error);
                 Swal.fire({
                   title: '系統錯誤',
                   text: '刪除過程發生錯誤',
@@ -549,6 +1004,59 @@ $result = $stmt->get_result();
               }
             });
           }
+        });
+      });
+
+      // 表格行淡入效果
+      $(".table tbody tr").each(function(index) {
+        $(this).css({
+          'animation-delay': (index * 0.1) + 's'
+        }).addClass('fade-in');
+      });
+
+      // 搜尋按鈕點擊效果 - 移除彩帶，改為簡單的漣漪效果
+      $("#searchBtn").click(function(e) {
+        // 移除原有的彩帶效果代碼
+        $(this).addClass('clicked');
+        setTimeout(() => {
+          $(this).removeClass('clicked');
+        }, 200);
+      });
+
+      // 滑鼠移動特效
+      let timeout;
+      $(document).mousemove(function(e) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          let sparkle = $("<div>", {
+            css: {
+              position: "fixed",
+              width: "8px",
+              height: "8px",
+              background: "rgba(245, 227, 195, 0.8)",
+              borderRadius: "50%",
+              boxShadow: "0 0 10px rgba(154, 52, 18, 0.5)",
+              pointerEvents: "none",
+              left: e.clientX + "px",
+              top: e.clientY + "px",
+              zIndex: 9999
+            }
+          }).appendTo("body");
+
+          sparkle.animate({
+            width: "0px",
+            height: "0px",
+            opacity: 0
+          }, 500, function() {
+            sparkle.remove();
+          });
+        }, 50);
+      });
+
+      // 商品圖片載入動畫
+      $(".product-img").each(function() {
+        $(this).on('load', function() {
+          $(this).addClass('fade-in');
         });
       });
     });

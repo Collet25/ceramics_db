@@ -35,6 +35,7 @@ $result = $stmt->get_result();
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>已刪除商品</title>
     <?php include("../css.php"); ?>
     <link rel="stylesheet" href="../products/style_p.css">
@@ -42,25 +43,220 @@ $result = $stmt->get_result();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .head-icon {
-            width: 30px;
-            height: 30px;
+        :root {
+            --bg-header: linear-gradient(90deg, #9A3412, #EA580C);
+            --text-light: #fff;
+        }
+
+        body {
+            cursor: url("https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png") 16 16, auto;
+        }
+
+        .page-header {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #9A3412, #EA580C);
+            border-radius: 2px;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #9A3412;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 表格容器樣式 */
+      
+
+        .table-responsive::before {
+            display: none;
+        }
+
+        /* 表格樣式 */
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            position: relative;
+            background: linear-gradient(90deg, #9A3412, #EA580C);
+        }
+
+        .table thead::after {
+            display: none;
+        }
+
+        .table th {
+            background: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 1rem;
+            border: none;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(154, 52, 18, 0.1);
+            background: none;
+            text-align: center;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .table td.text-start,
+        .table th.text-start {
+            text-align: left;
+        }
+
+        /* 商品圖片樣式 */
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(154, 52, 18, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(154, 52, 18, 0.15);
         }
 
         /* 按鈕樣式 */
         .btn-icon {
-            width: 32px;
-            height: 32px;
+            width: 35px;
+            height: 35px;
             padding: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
-            margin: 0 2px;
+            border-radius: 10px;
+            margin: 0 3px;
+            transition: all 0.3s ease;
+            border-width: 2px;
         }
 
         .btn-icon i {
             font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-success {
+            border-color: #9A3412;
+            color: #9A3412;
+        }
+
+        .btn-outline-success:hover {
+            background: linear-gradient(135deg, #9A3412, #EA580C);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+        }
+
+        .btn-outline-danger {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .btn-outline-danger:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2);
+        }
+
+        .btn-outline-secondary {
+            border: 2px solid #9A3412;
+            color: #9A3412;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #9A3412;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+        }
+
+        /* 分頁樣式 */
+        .pagination {
+            margin-top: 2rem;
+        }
+
+        .page-link {
+            color: #9A3412;
+            border: 2px solid rgba(154, 52, 18, 0.2);
+            margin: 0 3px;
+            border-radius: 8px;
+            padding: 0.5rem 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .page-link:hover {
+            background: linear-gradient(135deg, #9A3412, #EA580C);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+        }
+
+        .page-item.active .page-link {
+            background: linear-gradient(135deg, #9A3412, #EA580C);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(154, 52, 18, 0.2);
+        }
+
+        /* 文字樣式 */
+        .product-name {
+            font-weight: 500;
+            color: #9A3412;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: #EA580C;
+        }
+
+        .text-end {
+            color: #9A3412;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
         }
 
         /* 操作按鈕容器 */
@@ -69,41 +265,47 @@ $result = $stmt->get_result();
             text-align: center;
         }
 
-        /* 表格樣式 */
-        .table th {
-            text-align: center;          /* 表頭文字置中 */
-            vertical-align: middle;       /* 垂直置中 */
-            background-color: var(--bg-header);  /* 使用深磚紅背景 */
-            color: var(--text-light);     /* 使用淺色文字 */
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: 1.25rem 1rem;
-            border: none;
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .table-responsive {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+            
+            .product-img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .btn-icon {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .table th, .table td {
+                padding: 0.8rem;
+            }
         }
 
-        .table td {
-            vertical-align: middle;
-            text-align: center;
+        /* SweetAlert2 樣式 */
+        .swal2-popup {
+            border-radius: 15px;
         }
 
-        .table td.text-start,
-        .table th.text-start {           /* 允許特定欄位靠左對齊 */
-            text-align: left;
+        .swal2-title {
+            color: #9A3412 !important;
         }
 
-        .product-img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+        .swal2-confirm {
+            background: linear-gradient(135deg, #9A3412, #EA580C) !important;
         }
 
-        .product-name {
-            text-align: left;
-            font-weight: 500;
-        }
-
-        .product-price {
-            font-weight: 500;
+        .swal2-cancel {
+            background: #dc3545 !important;
         }
     </style>
 </head>
@@ -118,13 +320,13 @@ $result = $stmt->get_result();
                 <div class="col-12">
                     <div class="mb-4">
                         <div class="container">
-                            <div class="page-header">
+                            <div class="page-header ">
                                 <div>
                                     <a href="product-list.php" class="btn btn-outline-secondary">
-                                        <i class="bi bi-chevron-double-left"></i> 
+                                        <i class="bi bi-chevron-double-left mt-5"></i> 
                                     </a>
                                 </div>
-                                <h1 class="page-title ms-2">已刪除商品</h1>
+                                <h1 class="page-title ms-2 fs-2 pb-2">已刪除商品</h1>
                             </div>
 
                             <div class="mb-3">

@@ -3,7 +3,7 @@
     <div class="sidenav-header">
         <a class="navbar-brand " href="">
             <div class="logo-box mt-3">
-                <img src="../logo-img/logo7.png" class="logo-img mb-5" alt="logo">
+                <img src="../logo-img/logo10.png" class="logo-img mb-5" alt="logo">
                 <hr class="horizontal light "> 
             </div>
         </a>
@@ -206,6 +206,8 @@
             </li>
         </ul>
     </div>
+    
+
 
     <!-- 登出區域 -->
     <div class="sidenav-footer position-absolute w-100 bottom-0">
@@ -272,74 +274,126 @@
     bottom: 0;
 }
 
-/* 選單容器 */
+/* 選單容器優化 */
 .navbar-collapse {
-    margin-top: 1.5rem;
-    padding-top: 0.75rem;
+    margin-top: 1rem;
+    padding: 0 1rem;
 }
 
-/* 選單項目樣式 */
+/* 選單項目樣式優化 */
 .nav-link {
     color: #D1D5DB !important;
-    margin: 0.75rem 0.75rem;
-    border-radius: 0.5rem;
-    padding: 0.75rem 0.875rem;
-    transition: all 0.2s ease;
+    margin: 0.5rem 0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-link:hover:not(.active) {
-    background-color: #EA580C !important;
+    background: linear-gradient(135deg, #EA580C, #9A3412) !important;
     color: #FFFFFF !important;
+    transform: translateX(3px);
+    box-shadow: 0 4px 12px rgba(154, 52, 18, 0.2);
 }
 
 .nav-link.active {
-    background-color: #9A3412 !important;
+    background: linear-gradient(135deg, #9A3412, #EA580C) !important;
     color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(154, 52, 18, 0.3);
 }
 
-/* 圖示包裝 */
+/* 圖示包裝優化 */
 .icon-wrapper {
     width: 32px;
     height: 32px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.1);
-    margin-right: 0.5rem !important;
+    margin-right: 0.8rem !important;
+    transition: all 0.3s ease;
 }
 
 .nav-link i {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #F5E3C3;
+    transition: all 0.3s ease;
 }
 
 .nav-link:hover .icon-wrapper {
     background-color: rgba(255, 255, 255, 0.2);
+    transform: rotate(5deg);
 }
 
 .nav-link.active .icon-wrapper {
     background-color: #F5E3C3;
+    transform: scale(1.1);
 }
 
 .nav-link.active i {
     color: #9A3412;
 }
 
-/* 登出按鈕 */
+/* 下拉選單優化 */
+.collapse .nav-link {
+    padding-left: 3.2rem;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+/* 登出按鈕區域優化 */
 .sidenav-footer {
-    padding: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: absolute;
+    bottom: 2.5rem;
+    width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.sidenav-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .sidenav-footer .btn-primary {
-    background-color: #9A3412;
+    background: linear-gradient(135deg, #9A3412, #EA580C);
     border: none;
-    transition: all 0.2s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(154, 52, 18, 0.2);
+    font-size: 0.9rem;
+    width: 85%;
+    margin: 1rem auto 0;
+    display: block;
 }
 
 .sidenav-footer .btn-primary:hover {
-    background-color: #EA580C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(154, 52, 18, 0.3);
+    background: linear-gradient(135deg, #EA580C, #9A3412);
+}
+
+.sidenav-footer .btn-primary:active {
+    transform: scale(0.98);
+}
+
+.sidenav-footer .btn-primary i {
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    color: #F5E3C3;
 }
 
 /* 主內容區域調整 */
