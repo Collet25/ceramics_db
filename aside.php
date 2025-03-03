@@ -1,7 +1,7 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
     <!-- Logo 區域 -->
     <div class="sidenav-header">
-        <a class="navbar-brand " href="../index.php">
+        <a class="navbar-brand " href="">
             <div class="logo-box mt-3">
                 <img src="../logo-img/logo7.png" class="logo-img mb-5" alt="logo">
                 <hr class="horizontal light "> 
