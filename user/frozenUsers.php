@@ -77,6 +77,11 @@ if (isset($_GET["q"])) {
             border-radius: 10px;
             overflow: hidden;
         }
+
+        .page-header {
+            border: none; /* 先清除所有邊框 */
+            border-bottom: 2px solid #9A3412; /* 只加底部邊框 */
+        }
     </style>
 
 </head>
@@ -94,11 +99,11 @@ if (isset($_GET["q"])) {
 
             <div class="row">
                 <div class="col-12">
-                    <div class="d-flex align-items-center mx-4 p-2">
-                        <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
+                    <div class="d-flex align-items-center mx-4 p-3 page-header">
+                        <div><i class="fa-solid fa-user-group fa-2x me-3"></i></div>
 
                         <div>
-                            <h2>停權會員列表</h2>
+                            <h2 style="color: #9A3412;">停權會員列表</h2>
                         </div>
                     </div>
                     <div class="mb-4 p-3">
