@@ -105,12 +105,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="start_date" class="form-label">開始時間</label>
-                    <input type="datetime-local" class="form-control" id="start_date" name="start_date" required>
+                    <label for="start_date" class="form-label">開始日期</label>
+                    <input type="date" name="start_date" class="form-control" id="start_date"
+                        value="<?= isset($exhibition['start_date']) ? substr($exhibition['start_date'], 0, 10) : '' ?>" required>
                 </div>
                 <div class="mb-3">
-                    <label for="end_date" class="form-label">結束時間</label>
-                    <input type="datetime-local" class="form-control" id="end_date" name="end_date" required>
+                    <label for="end_date" class="form-label">結束日期</label>
+                    <input type="date" name="end_date" class="form-control" id="end_date"
+                        value="<?= isset($exhibition['end_date']) ? substr($exhibition['end_date'], 0, 10) : '' ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="tag_id" class="form-label">標籤</label>
