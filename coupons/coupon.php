@@ -430,7 +430,8 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
             });
         });
     </script>
-
+    <!-- 起訖日期限制 -->
+    
     <!-- 選取後自動提交表單 -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -443,19 +444,6 @@ $nextOrderEndDate   = ($order == 9) ? 10 : 9;
         });
     </script>
 
-    <!-- 起訖日期限制 -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let startDate = document.getElementById("filterStartDate");
-            let endDate = document.getElementById("filterEndDate");
-
-            if (startDate && endDate) {
-                startDate.addEventListener("change", function() {
-                    endDate.setAttribute("min", this.value);
-                });
-            }
-        });
-    </script>
 
 
     <!-- Github buttons -->
