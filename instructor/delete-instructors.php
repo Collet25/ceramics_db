@@ -14,26 +14,26 @@ if (isset($_GET["q"])) {
     $userCount = $result->num_rows;
 } else if (isset($_GET["P"])) {
     $P = $_GET["P"];
-    $order= $_GET["order"];
-    $orderClause="";
-    switch($order){
+    $order = $_GET["order"];
+    $orderClause = "";
+    switch ($order) {
         case 1:
-            $orderClause="ORDER BY id ASC";
+            $orderClause = "ORDER BY id ASC";
             break;
         case 2:
-            $orderClause="ORDER BY id DESC";
+            $orderClause = "ORDER BY id DESC";
             break;
         case 3:
-            $orderClause="ORDER BY deleted_at ASC";
+            $orderClause = "ORDER BY deleted_at ASC";
             break;
         case 4:
-            $orderClause="ORDER BY deleted_at DESC";
+            $orderClause = "ORDER BY deleted_at DESC";
             break;
     }
     $perPage = 6;
     $startItem = ($P - 1) * $perPage;
     $totalPage = ceil($userCount / $perPage);
-    
+
     $sql = "SELECT * FROM instructor WHERE valid=0 $orderClause LIMIT $startItem, $perPage";
     $result = $conn->query($sql);
     $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -45,19 +45,13 @@ if (isset($_GET["q"])) {
 <html lang="en">
 
 <head>
-    <title>古瓷宮（CUCCI）</title>
+    <title>刪除名單</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-        crossorigin="anonymous" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../logo-img/head-icon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
 </head>
@@ -65,11 +59,7 @@ if (isset($_GET["q"])) {
 <body>
     <?php include("../aside.php") ?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-    <?php
-        $navbarTitle = "『國立故瓷博物館』後台系統";
-        $navbarLink = "師資管理";
-        $navbarText = "刪除名單";
-        include("../navbar.php"); ?>
+        <?php include("../navbar.php"); ?>
         <div class="container-fluid py-4 px-5 ">
             <!-- 主要內容 -->
             <div class="row">
@@ -89,10 +79,10 @@ if (isset($_GET["q"])) {
                         <div class="card-body px-0 py-0">
                             <div class="border-bottom py-3 px-3 d-sm-flex align-items-center justify-content-between">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <a href="./delete-instructors.php?=$P?>&order=1" class="btn btn-light text-secondary <?php if ($order == 1) echo "active" ?>">ID<i class="fa-solid fa-up-long"></i></a>
-                                   <a href="./delete-instructors.php?P=<?=$P?>&order=2" class="btn btn-light text-secondary <?php if ($order == 2) echo "active" ?>">ID<i class="fa-solid fa-down-long"></i></i></a>
-                                   <a href="./delete-instructors.php?P=<?=$P?>&order=3" class="btn btn-light text-secondary <?php if ($order == 3) echo "active" ?>">刪除時間<i class="fa-solid fa-up-long"></i></a>
-                                   <a href="./delete-instructors.php?P=<?=$P?>&order=4" class="btn btn-light text-secondary <?php if ($order == 4) echo "active" ?>">刪除時間<i class="fa-solid fa-down-long"></i></i></a>
+                                    <a href="./delete-instructors.php?=$P?>&order=1" class="btn btn-light text-secondary <?php if ($order == 1) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-1-9"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=2" class="btn btn-light text-secondary <?php if ($order == 2) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-9-1"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=3" class="btn btn-light text-secondary <?php if ($order == 3) echo "active" ?>">刪除時間舊到新<i class="fa-solid fa-down-long"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=4" class="btn btn-light text-secondary <?php if ($order == 4) echo "active" ?>">刪除時間新到舊<i class="fa-solid fa-down-long"></i></a>
                                 </div>
                                 <form action="" method="get">
                                     <div class="input-group w-100 ms-auto">
@@ -116,14 +106,14 @@ if (isset($_GET["q"])) {
                                     <table class="table align-items-center mb-0">
                                         <thead class="bg-gray-200">
                                             <tr>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 text-center">ID</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7">姓名/email</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">性別</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">電話</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">簡介</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">加入時間</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">刪除時間</th>
-                                                <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">復原</th>
+                                                <th class="text-center">ID</th>
+                                                <th class="text-start">姓名/email</th>
+                                                <th class="text-start">性別</th>
+                                                <th class="text-start">電話</th>
+                                                <th class="text-start">簡介</th>
+                                                <th class="text-start">加入時間</th>
+                                                <th class="text-start">刪除時間</th>
+                                                <th class="text-start">復原</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -135,8 +125,8 @@ if (isset($_GET["q"])) {
                                                     <td>
                                                         <div class="d-flex px-2 py-1">
                                                             <div class="d-flex align-items-center">
-                                                                <a href=""><img src="<?= $row["img"] ?>" class="avatar avatar-sm rounded-circle me-2"
-                                                                        alt="user1"></a>
+                                                                <img src="<?= $row["img"] ?>" class="avatar avatar-sm rounded-circle me-2"
+                                                                    alt="user1">
                                                             </div>
                                                             <div class="d-flex flex-column justify-content-center ms-1">
                                                                 <h6 class="mb-0 text-sm font-weight-semibold text-start"><?= $row["name"] ?></h6>
@@ -160,7 +150,9 @@ if (isset($_GET["q"])) {
                                                         <p class="text-sm text-secondary mb-0 text-start"><?= $row["deleted_at"] ?></p>
                                                     </td>
                                                     <td class="align-middle text-start">
-                                                        <a href="../instructor/instructorRestore.php?id=<?= $row["id"] ?>" class="px-3 btn btn-primary"><i class="fa-solid fa-rotate-right"></i></a>
+                                                        <a href="../instructor/delete-instructor.php?id=<?= $row["id"] ?>" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                                                        <a href="../instructor/instructorRestore.php?id=<?= $row["id"] ?>" class="px-3 restore-btn btn btn-danger"><i class="fa-solid fa-rotate-right"></i></a>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                         </tbody>
@@ -172,13 +164,13 @@ if (isset($_GET["q"])) {
                                 <div class="border-top py-3 px-3 d-flex align-items-center">
                                     <nav aria-label="..." class="m-auto">
                                         <ul class="pagination mb-0">
-                                            <?php for($i=1; $i<=$totalPage; $i++): ?>
+                                            <?php for ($i = 1; $i <= $totalPage; $i++): ?>
                                                 <?php
                                                 $active = ($i == $_GET["P"]) ?
                                                     "active" : "";
                                                 ?>
-                                            <li class="page-item <?=$active?>"><a class="page-link border-0 font-weight-bold" href="./delete-instructors.php?P=<?=$i?>&order=<?= $order?>"><?=$i?></a></li>
-                                            <?php endfor;?>
+                                                <li class="page-item <?= $active ?>"><a class="page-link border-0 font-weight-bold" href="./delete-instructors.php?P=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                                            <?php endfor; ?>
                                         </ul>
                                     </nav>
                                 </div>
@@ -192,6 +184,5 @@ if (isset($_GET["q"])) {
     </main>
     <?php include("../js.php") ?>
 </body>
-
 
 </html>
