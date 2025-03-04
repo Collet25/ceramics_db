@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath = "../uploads/exhibition/" . basename($imageName);
 
         // 確保 uploads 目錄存在並有適當的權限
-        if (is_writable("../uploads/exhibition/") && move_uploaded_file($imageTmpPath, $imagePath)) {
-            $image = $imagePath;  // 儲存圖片路徑
+        if (is_writable("../uploads/") && move_uploaded_file($imageTmpPath, $imagePath)) {
+            $image = basename($imageName);  // 只存檔名到資料庫
         } else {
             echo "圖片上傳失敗，請檢查 uploads 目錄的寫入權限";
         }
@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新增展覽</title>
     <?php include("../css.php"); ?>
+    <?php include("../ev-css.php"); ?>
     <style>
         body {
             margin: 50px;

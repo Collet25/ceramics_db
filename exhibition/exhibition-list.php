@@ -123,7 +123,7 @@ $result = mysqli_query($conn, $sql);
 
                             $start_date = date('Y-m-d', strtotime($row['start_date']));
                             $end_date = date('Y-m-d', strtotime($row['end_date']));
-                            $image = !empty($row['image']) ? htmlspecialchars($row['image']) : '../uploads/exhibition/';
+                            $image = !empty($row['image']) ? '../uploads/exhibition/' . htmlspecialchars($row['image']) : '../uploads/default.jpg';
                             ?>
                             <tr class="exhibition-item">
                                 <td><img src="<?= $image ?>" alt="展覽圖片" class="thumbnail"></td>
