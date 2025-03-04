@@ -12,7 +12,6 @@ if (isset($_GET["q"])) {
         exit;
     }
     $sql = "SELECT * FROM users WHERE valid=1 AND (name LIKE '%$q%' OR account LIKE '%$q%' OR email LIKE '%$q%' OR frozen LIKE '%$q%')";
-
 } else if (isset($_GET["p"]) && isset($_GET["order"])) {
 
     $p = $_GET["p"];
@@ -61,8 +60,11 @@ if (isset($_GET["q"])) {
 <html lang="en">
 
 <head>
+    <title>停權會員</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
 
     <style>
@@ -70,6 +72,7 @@ if (isset($_GET["q"])) {
             background-color: #9A3412 !important;
             color: white !important;
         }
+
         .table {
             border-radius: 10px;
             overflow: hidden;
@@ -91,7 +94,7 @@ if (isset($_GET["q"])) {
 
             <div class="row">
                 <div class="col-12">
-                <div class="d-flex align-items-center mx-4 p-2">
+                    <div class="d-flex align-items-center mx-4 p-2">
                         <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
 
                         <div>
@@ -211,7 +214,7 @@ if (isset($_GET["q"])) {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3 d-flex justify-content-end">
                                         <div class="btn-group">
                                             <div class="dropdown me-2">
@@ -228,7 +231,7 @@ if (isset($_GET["q"])) {
                                         </div>
                                     </div>
 
-                              </div>
+                                </div>
                             </div>
 
 

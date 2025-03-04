@@ -18,13 +18,14 @@ $userCount = $result->num_rows;
 <html lang="zh-TW">
 
 <head>
-    <title>Title</title>
+    <title>會員資料編輯</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
     <style>
         .user-table {
@@ -39,6 +40,12 @@ $userCount = $result->num_rows;
             overflow-y: auto;
             /* 允許滾動 */
         }
+
+        .image-border {
+            border: 1px solid rgb(231, 205, 205);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -51,20 +58,19 @@ $userCount = $result->num_rows;
         <?php include("../navbar.php") ?>
 
         <!-- user -->
-        <div class="container-fluid py-2">
+        <div class="container-fluid">
 
             <div class="row justify-content-center">
-                <div class="col-8">
-                    <div class="d-flex align-items-center mb-4 mx-4 p-2">
-                        <div>
-                            <i class="fa-solid fa-user-group fa-2x me-2"></i>
-                        </div>
+                <div class="col-md-10 col-12">
+
+                    <div class="d-flex justify-content-center align-items-center mb-4 mx-4 p-2">
+                        <div><i class="fa-solid fa-user-group fa-2x me-2"></i></div>
                         <div>
                             <h2>會員資料編輯</h2>
                         </div>
                     </div>
 
-                    <div class="card mb-4 mx-4 p-3">
+                    <div class="card mb-4 mx-4 p-5">
 
                         <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
@@ -85,80 +91,109 @@ $userCount = $result->num_rows;
                         </div>
 
                         <div class="container">
-                            <div class="d-flex justify-content-center">
+
+                            <!-- XXX的個人資訊 -->
+                            <div class="mb-2 d-flex justify-content-start align-items-center">
+                                <a href="users.php" class="btn btn-primary me-3"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
+                                <div class="fs-3">
+                                    <?= $row["name"] ?>的個人資訊
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
                                 <div class="col-12">
                                     <?php if ($userCount > 0): ?>
-                                        <form action="doUpdateUser.php" method="post">
+                                        <form action="doUpdateUser.php" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="<?= $row["id"] ?>">
-                                            <table class="user-table table align-middle">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <td><?= $row["id"] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>名字</th>
-                                                    <td>
-                                                        <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>帳號</th>
-                                                    <td><?= $row["account"] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>性別</th>
-                                                    <td>
-                                                        <div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="男性"
-                                                                    <?= ($row["gender"] == "男性") ? "checked" : "" ?>>
-                                                                <label class="form-check-label" for="male">男性</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline">
-                                                                <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="女性"
-                                                                    <?= ($row["gender"] == "女性") ? "checked" : "" ?>>
-                                                                <label class="form-check-label" for="female">女性</label>
+
+                                            <div class="d-flex justify-content-between">
+
+                                                <!-- 頭像 -->
+                                                <div class="col-6 mt-4">
+                                                    <div class="d-flex justify-content-start align-items-start">
+                                                        <div class="col-10">
+                                                            <div class="ratio ratio-1x1 image-border">
+                                                                <img class="object-fit-cover" id="imagePreview" src="../user-upload/<?= $row["image"] ?>" alt="">
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
 
-                                                <tr>
-                                                    <th>電話</th>
-                                                    <td>
-                                                        <input type="tel" class="form-control" name="phone" value="<?= $row["phone"] ?>">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>信箱</th>
-                                                    <td>
-                                                        <input type="text" class="form-control" name="email" value="<?= $row["email"] ?>">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>生日</th>
-                                                    <td>
-                                                        <input type="date" class="form-control" name="birth" value="<?= $row["birth"] ?>">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>加入時間</th>
-                                                    <td><?= $row["created_at"] ?></td>
-                                                </tr>
-                                            </table>
-                                            <div class="d-flex justify-content-center">
-                                                <div class="py-2 me-2">
-                                                    <a href="users.php" class="btn btn-primary"><i class="me-2 fa-solid fa-arrow-left fa-fw"></i>返回列表</a>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="py-2 me-2">
-                                                        <button class="btn btn-primary" type="submit"><i class="me-2 fa-solid fa-floppy-disk fa-fw"></i>儲存
+                                                    <div class="d-flex justify-content-start">
+                                                        <div class="col-10">
+                                                            <label for="image" class="form-label"></label>
+                                                            <input type="file" class="form-control" name="image" id="image" onchange="previewImage(event)">
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-6">
+                                                    <table class="user-table table align-middle">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <td><?= $row["id"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>名字</th>
+                                                            <td>
+                                                                <input type="text" class="form-control" name="name" value="<?= $row["name"] ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>帳號</th>
+                                                            <td><?= $row["account"] ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>性別</th>
+                                                            <td>
+                                                                <div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="男性"
+                                                                            <?= ($row["gender"] == "男性") ? "checked" : "" ?>>
+                                                                        <label class="form-check-label" for="male">男性</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input d-flex justify-content-center align-items-center" type="radio" name="gender" value="女性"
+                                                                            <?= ($row["gender"] == "女性") ? "checked" : "" ?>>
+                                                                        <label class="form-check-label" for="female">女性</label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <th>電話</th>
+                                                            <td>
+                                                                <input type="tel" class="form-control" name="phone" value="<?= $row["phone"] ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>信箱</th>
+                                                            <td>
+                                                                <input type="text" class="form-control" name="email" value="<?= $row["email"] ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>生日</th>
+                                                            <td>
+                                                                <input type="date" class="form-control" name="birth" value="<?= $row["birth"] ?>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>加入時間</th>
+                                                            <td><?= $row["created_at"] ?></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
-                                            <div class="py-2 text-end">
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="fa-solid fa-trash fa-fw"></i>帳號凍結
-                                                </a>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="py-2 text-center">
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="fa-solid fa-trash fa-fw"></i>帳號凍結
+                                                    </a>
+                                                </div>
+                                                <div class="py-2 me-2">
+                                                    <button class="btn btn-primary" type="submit"><i class="me-2 fa-solid fa-floppy-disk fa-fw"></i>儲存</button>
+                                                </div>
                                             </div>
                                         </form>
                                     <?php else: ?>
@@ -171,13 +206,31 @@ $userCount = $result->num_rows;
                 </div>
             </div>
         </div>
-        </div>
-        </div>
-        </div>
+
         <!-- 頁尾 -->
         <?php include("../footer.php"); ?>
     </main>
+
     <?php include("../js.php") ?>
+
+    <script>
+        // 頭像預覽函式
+
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imagePreview');
+                if (output) {
+                    output.src = reader.result;
+                }
+            };
+            if (event.target.files.length > 0) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
