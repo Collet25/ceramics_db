@@ -307,6 +307,9 @@ $result = $stmt->get_result();
         .swal2-cancel {
             background: #dc3545 !important;
         }
+        /* .product-delete{
+            animation: fadeIn 0.5s ease;
+        } */
     </style>
 </head>
 
@@ -315,7 +318,7 @@ $result = $stmt->get_result();
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         <?php include("../navbar.php"); ?>
 
-        <div class="container-fluid py-4">
+        <div class="container-fluid py-4 product-delete">
             <div class="row">
                 <div class="col-12">
                     <div class="mb-4">
