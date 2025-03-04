@@ -22,3 +22,9 @@ artwork_img/**/*.jpg
 artwork_img/**/*.jpeg
 artwork_img/**/*.gif
 artwork_img/**/*.svg
+
+user-upload/**/*.png
+user-upload/**/*.jpg
+user-upload/**/*.jpeg
+user-upload/**/*.gif
+user-upload/**/*.svg
