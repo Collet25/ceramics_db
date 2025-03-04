@@ -32,6 +32,16 @@ $instructorCount = $result->num_rows;
     <link rel="apple-touch-icon" sizes="76x76" href="../logo-img/head-icon.png">
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
+    <style>
+        #ArtPreviewImg {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            display: none;
+            border: 2px solid #ddd;
+            padding: 3px;
+        }
+    </style>
 </head>
 
 <body>
@@ -86,6 +96,9 @@ $instructorCount = $result->num_rows;
                                         <dt class="col-sm-3">簡介</dt>
                                         <dd class="col-sm-9"><textarea class="form-control" name="teacherBio" rows="3" required><?= $row["bio"] ?></textarea></dd>
                                         <hr class="mt-2">
+                                        <dt class="col-sm-3">加入時間</dt>
+                                        <dd class="col-sm-9"><?= $row["created_at"] ?></dd>
+                                        <hr class="mt-2">
                                     </dl>
                                 </div>
                             </div>
@@ -106,7 +119,7 @@ $instructorCount = $result->num_rows;
                                         <dt class="col-sm-4 fs-3">作品名稱:</dt>
                                         <dd class="col-sm-8 fs-3"><input type="text" class="form-control" name="artName" value="<?= $row["artname"] ?>" required></dd>
                                         <dt class="col-sm-4 fs-3">作品介紹:</dt>
-                                        <dd class="col-sm-8 fs-3"><textarea class="form-control" name="artBio" rows="3" value="<?= $row["artbio"] ?>" required></textarea></dd>
+                                        <dd class="col-sm-8 fs-3"><textarea class="form-control" name="artBio" rows="3" required><?= $row["artbio"] ?></textarea></dd>
                                     </dl>
                                 </div>
                             </div>

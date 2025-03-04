@@ -64,9 +64,19 @@ if (isset($_GET["q"])) {
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
     <style>
-        :focus {
-            outline: none;
-            box-shadow: none;
+        .btn:focus,
+        .btn:active {
+            box-shadow: none !important;
+            outline: none !important;
+
+        }
+        .table td,
+        .table th {
+            word-break: break-word;
+            white-space: normal;
+            max-width: 400px;
+            /* 依需求調整 */
+            overflow-wrap: break-word;
         }
     </style>
 </head>
@@ -134,8 +144,8 @@ if (isset($_GET["q"])) {
                         <div class="card-header border-bottom pb-0">
                             <div class="d-sm-flex align-items-center">
                                 <div>
-                                    <h6 class="font-weight-semibold text-lg mb-0">老師名單</h6>
-                                    <p class="text-sm">查看所有老師的信息</p>
+                                    <h6 class="font-weight-semibold fs-2 mb-0"><i class="fa-solid fa-user-graduate fw-fs"></i>老師名單</h6>
+                                    <p class="text-sm mt-2">查看所有老師的信息</p>
                                 </div>
                                 <div class="ms-auto d-flex">
                                     <a href="./delete-instructors.php" class="btn btn-primary me-3"><i class="fa-solid fa-user-xmark pe-2"></i>查看刪除名單</a>
@@ -208,7 +218,7 @@ if (isset($_GET["q"])) {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a href="" class="view-artwork btn btn-primary"
+                                                        <a href="" class="view-artwork btn btn-danger"
                                                             data-name="<?= $row["name"] ?>"
                                                             data-artname="<?= $row["artname"] ?? '暫無作品' ?>"
                                                             data-image="<?= $row["image"] ?? 'default.jpg' ?>"
@@ -216,16 +226,16 @@ if (isset($_GET["q"])) {
                                                             <i class="fa-solid fa-palette"></i></a>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["gender"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["gender"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["phone"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["phone"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["bio"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["bio"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-secondary mb-0 text-start"><?= $row["created_at"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["created_at"] ?></p>
                                                     </td>
                                                     <td class="align-middle text-start">
                                                         <a href="../instructor/instructor.php?id=<?= $row["id"] ?>" class="px-3 btn btn-primary"><i class="fa-solid fa-eye"></i></a>

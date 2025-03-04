@@ -6,10 +6,14 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
-$sql = "SELECT instructor.*, artwork.artname, artwork.image AS artwork_image
-FROM instructor
-LEFT JOIN artwork ON instructor.id = artwork.instructor_id
-WHERE instructor.id = $id AND instructor.valid = 0";
+$sql = "SELECT instructor.*,
+               artwork.artname,
+               artwork.image AS artwork_image,
+               artwork.artbio
+        FROM instructor
+        LEFT JOIN artwork ON instructor.id = artwork.instructor_id
+        WHERE instructor.id = $id
+        AND instructor.valid = 0";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $instructorCount = $result->num_rows;
@@ -72,6 +76,12 @@ $instructorCount = $result->num_rows;
                                     <dt class="col-sm-3">簡介</dt>
                                     <dd class="col-sm-9"><?= $row["bio"] ?></dd>
                                     <hr class="mt-2">
+                                    <dt class="col-sm-3">加入時間</dt>
+                                    <dd class="col-sm-9"><?= $row["created_at"] ?></dd>
+                                    <hr class="mt-2">
+                                    <dt class="col-sm-3">刪除時間</dt>
+                                    <dd class="col-sm-9"><?= $row["deleted_at"] ?></dd>
+                                    <hr class="mt-2">
                                 </dl>
                             </div>
                         </div>
@@ -90,7 +100,7 @@ $instructorCount = $result->num_rows;
                                     <dt class="col-sm-4 fs-3">作品名稱 :</dt>
                                     <dd class="col-sm-8 fs-3 fw-bold"><?= $row["artname"] ?: "尚未提供" ?></dd>
                                     <dt class="col-sm-4 fs-3">作品簡介 :</dt>
-                                    <dd class="col-sm-8 fs-3"></dd>
+                                    <dd class="col-sm-8 fs-3"><?= $row["artbio"] ?></dd>
                                 </dl>
                             </div>
                         </div>
