@@ -16,3 +16,9 @@ instructor_img/**/*.jpg
 instructor_img/**/*.jpeg
 instructor_img/**/*.gif
 instructor_img/**/*.svg
+
+artwork_img/**/*.png
+artwork_img/**/*.jpg
+artwork_img/**/*.jpeg
+artwork_img/**/*.gif
+artwork_img/**/*.svg
