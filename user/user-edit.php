@@ -93,8 +93,8 @@ $userCount = $result->num_rows;
                         <div class="container">
 
                             <!-- XXX的個人資訊 -->
-                            <div class="mb-2 d-flex justify-content-start align-items-center">
-                                <a href="users.php" class="btn btn-primary me-3"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
+                            <div class="mb-2 d-flex justify-content-start align-items-center ">
+                                <a href="users.php" class="btn btn-primary me-3 my-auto"><i class="fa-solid fa-arrow-left fa-fw"></i></a>
                                 <div class="fs-3">
                                     <?= $row["name"] ?>的個人資訊
                                 </div>
