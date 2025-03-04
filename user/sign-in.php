@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
+    <title>會員登入</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
     <style>
         body {
@@ -11,30 +14,43 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            min-height: 100vh;
-            /* 確保 body 至少跟視窗一樣高 */
+            height: 100vh;
+
         }
 
         .row {
             min-height: 100vh;
-            /* 讓 `.row` 填滿整個視窗高度 */
             display: flex;
             align-items: center;
-            /* 垂直置中 */
             justify-content: center;
-            /* 水平置中（可選） */
+        }
+
+        .card-footer img {
+            width: 100%;
+            height: auto;
+            /* 保持原始比例 */
+            object-fit: cover;
+            /* 圖片覆蓋但不變形 */
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-4 col-sm-8 col-12 d-flex flex-column mx-auto">
-                <div class="card" style="background-color:rgba(255, 255, 255, 0.8);">
-                    <div class="card-header pb-0 text-left bg-transparent">
-                        <h3 class="font-weight-black text-dark display-6">登入</h3>
+        <div class="row">
+            <div class="col-md-4 col-sm-8 col-12">
+                <div class="card m-2" style="background-color:rgba(255, 255, 255, 0.8);">
+
+                    <div class="card-header pb-2 text-left bg-transparent">
+                        <div class="mb-3">
+                           
+                            <!-- 文字絕對置中 -->
+                            <div class="font-weight-black text-dark text-center display-6">
+                                登入
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="card-body">
                         <form action="doSignIn.php" method="post">
@@ -68,9 +84,14 @@
                     </div>
                     <div class="card-footer text-center px-lg-2 px-1">
                         <p class="mb-4 mx-auto">
-                            還沒有帳號?
-                            <a href="sign-up.php" class="text-dark font-weight-bold">註冊</a>
+                            需要新增使用者嗎?
+                            <a href="sign-up.php" class="text-dark font-weight-bold">新增</a>
                         </p>
+                        <div class="d-flex justify-content-center">
+                            <div class="col-8">
+                                <img class="object-fit-cover" src="../logo-img/logo-nav1.png" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

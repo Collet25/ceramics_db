@@ -10,7 +10,7 @@ $account = $_POST["account"];
 $password = $_POST["password"];
 // $repassword = $_POST["repassword"];
 
-$sql = "SELECT * FROM users WHERE account='$account' AND password='$password'";
+$sql = "SELECT * FROM users WHERE account='$account' AND password='$password' AND valid=0";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
 

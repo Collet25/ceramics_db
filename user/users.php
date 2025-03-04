@@ -63,8 +63,12 @@ if (isset($_GET["q"])) {
 <html lang="en">
 
 <head>
+    <title>會員列表</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
 
 
