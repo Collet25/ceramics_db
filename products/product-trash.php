@@ -325,11 +325,11 @@ $result = $stmt->get_result();
                         <div class="container">
                             <div class="page-header ">
                                 <div>
-                                    <a href="product-list.php" class="btn btn-outline-secondary">
-                                        <i class="bi bi-chevron-double-left mt-5"></i> 
+                                    <a href="product-list.php" class="btn btn-outline-secondary  my-auto">
+                                        <i class="bi bi-chevron-double-left"></i> 
                                     </a>
                                 </div>
-                                <h1 class="page-title ms-2 fs-2 pb-2">已刪除商品</h1>
+                                <h1 class="page-title ms-2 fs-2 ">已刪除商品</h1>
                             </div>
 
                             <div class="mb-3">

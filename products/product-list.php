@@ -707,7 +707,7 @@ $result = $stmt->get_result();
             <div class="container">
               <div class="page-header">
                 <div class="breadcrumb">
-                  <img src="../logo-img/head-icon.png" alt="" class="head-icon mx-1 mt-2">
+                  <img src="../logo-img/head-icon.png" alt="" class="head-icon mx-1 my-auto">
                   <!-- <i class="bi bi-shop-window fs-2 mt-1 mx-2"></i> -->
                   <!-- <a href="../index.php">首頁</a> / 商品管理 -->
                 </div>

@@ -278,7 +278,7 @@ $origins_result = $conn->query($sql_origins);
 
                 <div class="mt-3">
                   <a href="product-list.php" class="btn btn-outline-secondary">
-                    <i class="bi bi-chevron-double-left"></i>
+                    <i class="bi bi-chevron-double-left  my-auto"></i>
                   </a>
                 </div>
                 <div>
