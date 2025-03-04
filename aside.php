@@ -72,6 +72,68 @@
 
             </li>
 
+             <!-- 商品管理 -->
+             <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#productMenu" role="button" aria-expanded="false" aria-controls="productMenu">
+                    <div class="icon-wrapper me-2">
+                    <i class="bi bi-basket-fill"></i>
+                    </div>
+                    <span class="nav-link-text">商品管理</span>
+                </a>
+
+                <!-- 商品下拉選單 -->
+                <div class="collapse <?= ($activeMenu === 'productMenu') ? 'show' : '' ?>" id="productMenu">
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-center <?= ($currentPage === 'product-list.php') ? 'active' : '' ?>" 
+                               href="../products/product-list.php">商品列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage === 'product-create.php') ? 'active' : '' ?>" 
+                               href="../products/product-create.php">新增商品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage === 'product-trash.php') ? 'active' : '' ?>" 
+                               href="../products/product-trash.php">已刪除商品</a>
+                        </li>   
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="../products/product-delete.php">刪除商品</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+            <!-- 師資管理 -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#teacherMenu" role="button" aria-expanded="false" aria-controls="teacherMenu">
+                    <div class="icon-wrapper me-2">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span class="nav-link-text">師資管理</span>
+                </a>
+
+                <!-- 師資下拉選單 -->
+                <div class="collapse <?= ($activeMenu === 'teacherMenu') ? 'show' : '' ?>" id="teacherMenu">
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-center <?= ($currentPage === 'instructors.php') ? 'active' : '' ?>" 
+                               href="../instructor/instructors.php">師資列表</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage === 'instructor-up.php') ? 'active' : '' ?>" 
+                               href="../instructor/instructor-up.php">新增師資</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= ($currentPage === 'delete-instructors.php') ? 'active' : '' ?>" 
+                               href="../instructor/delete-instructors.php">停權師資</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <!-- 展覽管理 -->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#exhibitionMenu" role="button" aria-expanded="false" aria-controls="exhibitionMenu">
@@ -122,63 +184,9 @@
                 </div>  
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#teacherMenu" role="button" aria-expanded="false" aria-controls="teacherMenu">
-                    <div class="icon-wrapper me-2">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <span class="nav-link-text">師資管理</span>
-                </a>
+            
 
-                <!-- 師資下拉選單 -->
-                <div class="collapse <?= ($activeMenu === 'teacherMenu') ? 'show' : '' ?>" id="teacherMenu">
-                    <ul class="navbar-nav ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link text-center <?= ($currentPage === 'instructors.php') ? 'active' : '' ?>" 
-                               href="../instructor/instructors.php">師資列表</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($currentPage === 'instructor-up.php') ? 'active' : '' ?>" 
-                               href="../instructor/instructor-up.php">新增師資</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($currentPage === 'delete-instructors.php') ? 'active' : '' ?>" 
-                               href="../instructor/delete-instructors.php">停權師資</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#productMenu" role="button" aria-expanded="false" aria-controls="productMenu">
-                    <div class="icon-wrapper me-2">
-                    <i class="bi bi-basket-fill"></i>
-                    </div>
-                    <span class="nav-link-text">商品管理</span>
-                </a>
-
-                <!-- 商品下拉選單 -->
-                <div class="collapse <?= ($activeMenu === 'productMenu') ? 'show' : '' ?>" id="productMenu">
-                    <ul class="navbar-nav ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link text-center <?= ($currentPage === 'product-list.php') ? 'active' : '' ?>" 
-                               href="../products/product-list.php">商品列表</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($currentPage === 'product-create.php') ? 'active' : '' ?>" 
-                               href="../products/product-create.php">新增商品</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= ($currentPage === 'product-trash.php') ? 'active' : '' ?>" 
-                               href="../products/product-trash.php">已刪除商品</a>
-                        </li>   
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="../products/product-delete.php">刪除商品</a>
-                        </li> -->
-                    </ul>
-                </div>
-            </li>
-
+           <!-- 優惠券管理 -->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#couponMenu" role="button" aria-expanded="false" aria-controls="couponMenu">
                     <div class="icon-wrapper me-2">
