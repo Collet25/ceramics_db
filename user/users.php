@@ -63,6 +63,7 @@ if (isset($_GET["q"])) {
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>會員列表</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
