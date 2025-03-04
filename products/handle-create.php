@@ -4,6 +4,8 @@ require_once("../ceramics_db_connect.php");
 // 設置響應頭
 header('Content-Type: application/json');
 
+ob_clean(); // 清除输出缓冲区
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     try {
         // 設定上傳目錄

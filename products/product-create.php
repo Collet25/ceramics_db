@@ -456,44 +456,55 @@ $origins_result = $conn->query($sql_origins);
             data: formData,
             processData: false,
             contentType: false,
+            dataType: 'text',
             success: function(response) {
-              try {
-                let result = JSON.parse(response);
-                if(result.success) {
-                  // 成功时显示成功消息
+              console.log('Response type:', typeof response);
+              console.log('Raw response:', response);
+              if (typeof response === 'string') {
+                  try {
+                      let result = JSON.parse(response);
+                      if(result.success) {
+                          Swal.fire({
+                              position: 'center',
+                              icon: 'success',
+                              title: '商品新增成功',
+                              text: result.message,
+                              showConfirmButton: false,
+                              timer: 1500,
+                              backdrop: `rgba(0,0,0,0.4)`,
+                              background: '#fff',
+                              customClass: {
+                                  title: 'text-orange-700',
+                                  popup: 'rounded-lg shadow-xl'
+                              }
+                          }).then(() => {
+                              window.location.href = 'product-list.php';
+                          });
+                      } else {
+                          Swal.fire({
+                              icon: 'error',
+                              title: '新增失敗',
+                              text: result.message,
+                              confirmButtonColor: '#9A3412'
+                          });
+                      }
+                  } catch(e) {
+                      console.error('JSON parsing error:', e);
+                      Swal.fire({
+                          icon: 'error',
+                          title: '系統錯誤',
+                          text: '資料處理失敗',
+                          confirmButtonColor: '#9A3412'
+                      });
+                  }
+              } else {
+                  console.error('Unexpected response type:', typeof response);
                   Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '商品新增成功',
-                    text: result.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                    backdrop: `rgba(0,0,0,0.4)`,
-                    background: '#fff',
-                    customClass: {
-                      title: 'text-orange-700',
-                      popup: 'rounded-lg shadow-xl'
-                    }
-                  }).then(() => {
-                    window.location.href = 'product-list.php';
+                      icon: 'error',
+                      title: '系統錯誤',
+                      text: '非預期的響應類型',
+                      confirmButtonColor: '#9A3412'
                   });
-                } else {
-                  // 失败时显示错误消息
-                  Swal.fire({
-                    icon: 'error',
-                    title: '新增失敗',
-                    text: result.message,
-                    confirmButtonColor: '#9A3412'
-                  });
-                }
-              } catch(e) {
-                console.error('JSON parsing error:', e);
-                Swal.fire({
-                  icon: 'error',
-                  title: '系統錯誤',
-                  text: '資料處理失敗',
-                  confirmButtonColor: '#9A3412'
-                });
               }
             },
             error: function(xhr, status, error) {
