@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ✅ 處理圖片上傳
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $imageName = basename($_FILES['image']['name']);
-        $targetDir = "../uploads/";  // 確保這個資料夾存在且有寫入權限
+        $targetDir = "../uploads/exhibition/";  // 確保這個資料夾存在且有寫入權限
         $targetFile = $targetDir . $imageName;
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {

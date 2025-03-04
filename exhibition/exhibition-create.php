@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['image']['tmp_name'];
         $imageName = $_FILES['image']['name'];
-        $imagePath = "../uploads/" . basename($imageName);
+        $imagePath = "../uploads/exhibition/" . basename($imageName);
 
         // 確保 uploads 目錄存在並有適當的權限
-        if (is_writable("../uploads/") && move_uploaded_file($imageTmpPath, $imagePath)) {
+        if (is_writable("../uploads/exhibition/") && move_uploaded_file($imageTmpPath, $imagePath)) {
             $image = $imagePath;  // 儲存圖片路徑
         } else {
             echo "圖片上傳失敗，請檢查 uploads 目錄的寫入權限";
