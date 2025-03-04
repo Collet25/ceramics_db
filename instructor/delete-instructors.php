@@ -54,9 +54,39 @@ if (isset($_GET["q"])) {
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
+    <style>
+        .table td,
+        .table th {
+            word-break: break-word;
+            white-space: normal;
+            max-width: 400px;
+            /* 依需求調整 */
+            overflow-wrap: break-word;
+        }
+    </style>
+
+    </style>
 </head>
 
 <body>
+    <!-- 刪除Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content w-50 m-auto">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel">系統訊息</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center h-50">
+                    確認要復原這位老師嗎？
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <a role="button" class="btn btn-danger" id="confirmDelete">確認</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php include("../aside.php") ?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         <?php include("../navbar.php"); ?>
@@ -68,8 +98,8 @@ if (isset($_GET["q"])) {
                         <div class="card-header border-bottom pb-0">
                             <div class="d-sm-flex align-items-center">
                                 <div>
-                                    <h6 class="font-weight-semibold text-lg mb-0">刪除名單</h6>
-                                    <p class="text-sm">查看被刪除的老師</p>
+                                    <h6 class="font-weight-semibold fs-2 mb-0"><i class="fa-solid fa-skull me-2"></i>刪除名單</h6>
+                                    <p class="text-sm mt-2">查看被刪除的老師</p>
                                 </div>
                                 <div class="ms-auto d-flex">
                                     <a href="./instructors.php" class="btn btn-primary px-3"><i class="fa-solid fa-house-user pe-2"></i>回成員名單</a>
@@ -79,10 +109,10 @@ if (isset($_GET["q"])) {
                         <div class="card-body px-0 py-0">
                             <div class="border-bottom py-3 px-3 d-sm-flex align-items-center justify-content-between">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <a href="./delete-instructors.php?=$P?>&order=1" class="btn btn-light text-secondary <?php if ($order == 1) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-1-9"></i></a>
-                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=2" class="btn btn-light text-secondary <?php if ($order == 2) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-9-1"></i></a>
-                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=3" class="btn btn-light text-secondary <?php if ($order == 3) echo "active" ?>">刪除時間舊到新<i class="fa-solid fa-down-long"></i></a>
-                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=4" class="btn btn-light text-secondary <?php if ($order == 4) echo "active" ?>">刪除時間新到舊<i class="fa-solid fa-down-long"></i></a>
+                                    <a href="./delete-instructors.php?=$P?>&order=1" class="btn btn-light text-dark <?php if ($order == 1) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-1-9"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=2" class="btn btn-light text-dark <?php if ($order == 2) echo "active" ?>">ID<i class="fa-solid fa-arrow-down-9-1"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=3" class="btn btn-light text-dark <?php if ($order == 3) echo "active" ?>">刪除時間舊到新<i class="fa-solid fa-down-long"></i></a>
+                                    <a href="./delete-instructors.php?P=<?= $P ?>&order=4" class="btn btn-light text-dark <?php if ($order == 4) echo "active" ?>">刪除時間新到舊<i class="fa-solid fa-down-long"></i></a>
                                 </div>
                                 <form action="" method="get">
                                     <div class="input-group w-100 ms-auto">
@@ -135,23 +165,23 @@ if (isset($_GET["q"])) {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["gender"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["gender"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["phone"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["phone"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-dark font-weight-semibold mb-0 text-start"><?= $row["bio"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["bio"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-secondary mb-0 text-start"><?= $row["created_at"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["created_at"] ?></p>
                                                     </td>
                                                     <td>
-                                                        <p class="text-sm text-secondary mb-0 text-start"><?= $row["deleted_at"] ?></p>
+                                                        <p class="fw-bold text-start"><?= $row["deleted_at"] ?></p>
                                                     </td>
                                                     <td class="align-middle text-start">
                                                         <a href="../instructor/delete-instructor.php?id=<?= $row["id"] ?>" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
-                                                        <a href="../instructor/instructorRestore.php?id=<?= $row["id"] ?>" class="px-3 restore-btn btn btn-danger"><i class="fa-solid fa-rotate-right"></i></a>
+                                                        <a href="" class="px-3 restore-btn btn btn-danger" data-id="<?= $row["id"] ?>" data-bs-toggle="modal" data-bs-target="#infoModal"><i class="fa-solid fa-rotate-right"></i></a>
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -183,6 +213,23 @@ if (isset($_GET["q"])) {
         <?php include("../footer.php") ?>
     </main>
     <?php include("../js.php") ?>
+    <script>
+        let restoreId = null;
+
+        // 監聽所有復原按鈕，當按下時，更新 restoreId
+        document.querySelectorAll(".restore-btn").forEach(button => {
+            button.addEventListener("click", function() {
+                restoreId = this.getAttribute("data-id"); // 獲取 data-id
+            });
+        });
+
+        // 當點擊「確認復原」時，跳轉到復原頁面
+        document.getElementById("confirmDelete").addEventListener("click", function() {
+            if (restoreId) {
+                window.location.href = "../instructor/instructorRestore.php?id=" + restoreId;
+            }
+        });
+    </script>
 </body>
 
 </html>

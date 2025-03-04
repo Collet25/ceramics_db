@@ -33,6 +33,8 @@ $instructorCount = $result->num_rows;
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <?php include("../css.php") ?>
+    <style>
+    </style>
 </head>
 
 <body class="g-sidenenav-show">
@@ -76,6 +78,9 @@ $instructorCount = $result->num_rows;
                                     <dt class="col-sm-3">簡介</dt>
                                     <dd class="col-sm-9"><?= $row["bio"] ?></dd>
                                     <hr class="mt-2">
+                                    <dt class="col-sm-3">加入時間</dt>
+                                    <dd class="col-sm-9"><?= $row["created_at"] ?></dd>
+                                    <hr class="mt-2">
                                 </dl>
                             </div>
                         </div>
@@ -86,7 +91,7 @@ $instructorCount = $result->num_rows;
                 <div class="card mb-3 ">
                     <div class="row g-0 align-items-center">
                         <div class="col-md-4">
-                            <img src="<?= $row["artwork_image"] ?>" alt="作品照片" class="img-fluid rounded-start shadow-lg" style="object-fit: cover; width:100%; height:100%;">
+                            <img src="<?= $row["artwork_image"] ?>" alt="作品照片" id="artworkImg" class="img-fluid rounded-start shadow-lg" style="object-fit: cover; width:100%; height:100%;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body mt-0 w-75 mx-auto">

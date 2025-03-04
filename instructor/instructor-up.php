@@ -43,7 +43,7 @@ require_once("../ceramics_db_connect.php");
         <?php include("../navbar.php"); ?>
         <div class="container py-4 px-5">
             <div class="card shadow-sm p-4 w-75 mx-auto">
-                <h2 class="text-center fs-1 mb-4">新增老師</h2>
+                <h2 class="text-center fs-1 mb-4"><i class="fa-solid fa-person-praying me-2"></i>新增老師</h2>
                 <hr class="mt-0 border-2">
                 <form action="add-instructor.php" method="POST" enctype="multipart/form-data">
                     <a href="./instructors.php" class="btn btn-primary"><i class="fa-solid fa-arrow-left pe-2"></i>回成員名單</a>
