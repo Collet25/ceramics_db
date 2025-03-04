@@ -29,94 +29,84 @@ $userCount = $result->num_rows;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
     <title>查看優惠券</title>
     <style>
-        /* *{
-            border: solid 1px red;
-        } */
-        .coupon-card {
-            display: flex;
-            flex-direction: column;
-            max-width: 600px;
-            /* background: #f8f9fa; */
-            /* border-radius: 12px; */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            border: 2px solid #7B2D12;
-            /* 點線邊框 */
-            padding: 16px;
-            margin: 20px auto;
 
+        .detail-table {
+            
+            width: 100%;
+            margin: auto;
+            /* max-width: 1000px; */
+            border-collapse: collapse;
+            font-size: 18px;
+            border: 1px dashed rgb(97, 85, 85);
+            background: #fff;
+            padding-bottom: 10px;
         }
 
-        .coupon-header {
-            text-align: center;
-            color: #7B2D12;
-            padding: 12px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-bottom: #7B2D12 2px solid;
+        .detail-table th,
+        .detail-table td {
+            padding: 8px;
         }
 
-        /* .coupon-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 16px;
-        } */
-
-        .coupon-section {
-            width: 46%;
-            /* 讓資訊橫向排列 */
-            margin-bottom: 8px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .label {
+        .detail-table th {
             font-weight: bold;
             color: #333;
-            font-size: 16px;
+            white-space: nowrap;
+            vertical-align: middle;
+            display: table-cell;
+            padding: 18px;
+
         }
 
-        .value {
-            font-size: 19px;
-            color: #EA580C;
+        .detail-table td {
+            white-space: nowrap;
+            /* 防止文字換行 */
+            color: #555;
         }
 
-        .coupon-footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px;
+        .detail-table td[colspan="4"] {
+            font-weight: bold;
+            color: #222;
         }
 
-
-        .text-brown {
-            color: #7B2D12;
+        /* 遮罩背景 */
+        .modal-overlay {
+            display: none;
+            /* 預設隱藏 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        .text-brown:hover {
-            color: #7B2D12;
+        /* 優惠券彈窗 */
+        .modal-coupon {
+            background: linear-gradient(70deg, #ff9a9e 0%, rgb(246, 200, 188) 50%, #fad07a 100%);
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            font-family: "Kaisei Decol", serif;
         }
 
-
-
-        /* RWD: 手機直式改成單欄 */
-        @media (max-width: 480px) {
-            .coupon-content {
-                flex-direction: column;
-            }
-
-            .coupon-section {
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                margin-top: 8px;
-            }
-
-
+        /* 關閉按鈕 */
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
         }
     </style>
     <?php include("../css.php") ?>
@@ -130,97 +120,104 @@ $userCount = $result->num_rows;
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg grid">
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
+        <div class="d-flex justify-content-start align-items-center ms-6">
+            <a href="coupon.php" class="btn btn-outline-secondary">
+                <i class="bi bi-chevron-double-left fa-sm"></i>
+            </a>
+            <h5 class="mb-0 ms-2">優惠券查看</h5>
+        </div>
+        <hr>
 
-        <div class="container-fluid d-flex justify-content-center py-4 px-5">
-            <div class="card col-12 col-lg-8">
-                <div class="card-header pt-3">
-                    <div class="d-flex justify-content-between">
-                        <div class=" mb-3">
-                            <h6 class="font-weight-bold fs-4 mb-0 ms-2"><i class=" fa-solid fa-tags"></i> 檢視優惠券</h6>
-                        </div>
-                        <!-- 按鈕區 -->
-                        <div class="d-flex justify-content-end gap-2 mb-3">
-                            <a href="coupon.php" class="text-decoration-none btn btn-cancel p-2">
-                                <div class=" fs-6 mb-0"> <i class="fa-solid fa-circle-left"></i> 返回列表
-                                </div>
-                            </a>
-                            <a class="btn btn-primary text-brown d-flex align-items-center"
-                                href="coupon-edit.php?id=<?= $row["id"] ?>" title="編輯" aria-label="編輯">
-                                <i class="fa-solid fa-pen-to-square fa-lg me-1"></i> 編輯
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="card-body d-flex justify-content-center">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                            <div class="fs-6">
-                                <?php if ($userCount > 0): ?>
-                                    <div class="coupon-card m-1">
-                                        <div class="coupon-header text-center">
-                                            <h4 class="mb-1"><?= htmlspecialchars($row["name"]) ?></h4>
-                                            <p class="mb-0">折扣碼：<strong><?= htmlspecialchars($row["code"]) ?></strong></p>
-                                        </div>
-
-                                        <div class=" d-flex flex-wrap justify-content-center gap-3">
-                                            <div class="coupon-section">
-                                                <span class="label">ID：</span>
-                                                <span class="value"><?= ($row["id"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">適用範圍：</span>
-                                                <span class="value"><?= ($row["categories"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">類型：</span>
-                                                <span class="value" id="discountType"><?= ($row["discountType"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">折扣：</span>
-                                                <span class="value" id="discount"><?= ($row["discount"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">低消金額：</span>
-                                                <span class="value">$<?= ($row["minSpend"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">發行數量：</span>
-                                                <span class="value"><?= ($row["quantity"]) ?> 張</span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">有效日期：</span>
-                                                <span class="value"><?= htmlspecialchars($row["startDate"]) ?> ~ <?= htmlspecialchars($row["endDate"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">建立時間：</span>
-                                                <span class="value"><?= htmlspecialchars($row["created_at"]) ?></span>
-                                            </div>
-                                            <div class="coupon-section">
-                                                <span class="label">狀態：</span>
-                                                <span class="value"><?= htmlspecialchars($row["status"]) ?></span>
-                                            </div>
-                                            <!-- 為了排版方便增加同底色的欄位 -->
-                                            <div class="coupon-section text-white">
-                                                <span class="label text-white">狀態：</span>
-                                                <span class="value text-white"><?= htmlspecialchars($row["status"]) ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <h2 class="text-center text-danger">⚠ 使用者不存在</h2>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <!-- 自訂彈窗 -->
+        <div class="modal-overlay" id="couponOverlay">
+            <div class="modal-coupon">
+                <span class="close-modal" id="closeModal">&times;</span>
+                <h3 class="text-dark"><?= $row["name"] ?></h3>
+                <h6>折扣碼：<?= $row["code"] ?></h6>
+                <h5><?= $row["categories"] ?>適用</h5>
+                <p id="discount" class="discount"><?= $row["discount"] ?></p>
+                <p>(全館滿$<?= $row["minSpend"] ?>元可折)</p>
+                <p class="expiry">有效期限：<?= $row["endDate"] ?></p>
             </div>
         </div>
 
+        <div class="col-lg-12 col-12 d-flex justify-content-center">
+            <?php if ($userCount > 0): ?>
+                <div class="table-responsive p-5 card" style="width: 700px">
+                    <table class="detail-table py-4">
+                        <thead>
+                            <tr>
+                                <div class="d-flex justify-content-center mb-3">
+                                    <h4 class="text-center">詳細資訊 </h4>
+                                    <a class="text-decoration-none text-dark ps-2"
+                                        href="coupon-edit.php?id=<?= $row["id"] ?>" title="編輯" aria-label="編輯">
+                                        <i class="fa-solid fa-pen-to-square fa-fw"></i>
+                                    </a>
+                                </div>
+                            </tr>
+                        </thead>
+                        <tbody class="pb-5">
+                            <tr>
+                                <th>ID</th>
+                                <td><?= ($row["id"]) ?></td>
+                                <th>名稱</th>
+                                <td><?= ($row["name"]) ?></td>
+                            </tr>
+                            <tr>
+                                <th>折扣碼</th>
+                                <td><?= ($row["code"]) ?></td>
+                                <th>適用範圍</th>
+                                <td><?= ($row["categories"]) ?></td>
+                            </tr>
+                            <tr>
+                                <th>類型</th>
+                                <td id="discountType"><?= ($row["discountType"]) ?></td>
+                                <th>折扣</th>
+                                <td id="discount"><?= ($row["discount"]) ?></td>
+                            </tr>
+                            <tr>
+                                <th>低消金額</th>
+                                <td>$<?= ($row["minSpend"]) ?></td>
+                                <th>發行數量</th>
+                                <td><?= number_format($row["quantity"]) ?> 張</td>
+                            </tr>
+                            <tr>
+                                <th>有效日期</th>
+                                <td colspan="3"><?= htmlspecialchars($row["startDate"]) ?> ~ <?= htmlspecialchars($row["endDate"]) ?></td>
+                            </tr>
+                            <tr>
+                                <th>建立時間</th>
+                                <td><?= htmlspecialchars($row["created_at"]) ?></td>
+                                <th>狀態</th>
+                                <td><?php if ($row['status'] == '啟用'): ?>
+                                        <strong class="text-light bg-warning">啟用</span>
+                                        <?php else: ?>
+                                            <strong class="text-white bg-danger">停用</strong>
+                                        <?php endif; ?>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <th>檢視優惠券</th>
+                                <td>
+                                    <button class="btn btn-primary" id="openModal">預覽</button>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+        </div>
 
-        <?php include("../footer.php") ?>
+    <?php else: ?>
+        <h2 class="text-center text-danger">⚠ 使用者不存在</h2>
+    <?php endif; ?>
+    </div>
 
+
+
+
+    <?php include("../footer.php") ?>
     </main>
 
 
@@ -232,20 +229,47 @@ $userCount = $result->num_rows;
             console.log("DOM 已加載，開始執行 JS");
 
             let typeElement = document.getElementById("discountType");
-            let discountElement = document.getElementById("discount");
+            let discountElements = document.querySelectorAll("#discount"); // 選取所有 discount
 
             console.log("找到類型:", typeElement ? typeElement.innerText.trim() : "無");
-            console.log("找到折扣:", discountElement ? discountElement.innerText.trim() : "無");
+            console.log("找到折扣數量:", discountElements.length);
 
-            if (typeElement && discountElement) {
+            if (typeElement && discountElements.length > 0) {
                 let discountType = typeElement.innerText.trim();
-                let discountValue = parseFloat(discountElement.innerText.trim());
 
-                if (!isNaN(discountValue)) {
-                    discountElement.innerText = (discountType === "現金") ? `$${discountValue}` : `${discountValue}%`;
-                    console.log("更新後的折扣:", discountElement.innerText);
-                }
+                discountElements.forEach(discountElement => {
+                    let discountValue = parseFloat(discountElement.innerText.trim());
+
+                    if (!isNaN(discountValue)) {
+                        discountElement.innerText = (discountType === "現金") ? `$${discountValue}` : `${discountValue}%`;
+                        console.log("更新後的折扣:", discountElement.innerText);
+                    }
+                });
             }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let openModal = document.getElementById("openModal");
+            let closeModal = document.getElementById("closeModal");
+            let modalOverlay = document.getElementById("couponOverlay");
+
+            // 點擊按鈕顯示彈窗
+            openModal.addEventListener("click", function() {
+                modalOverlay.style.display = "flex";
+            });
+
+            // 點擊關閉按鈕隱藏彈窗
+            closeModal.addEventListener("click", function() {
+                modalOverlay.style.display = "none";
+            });
+
+            // 點擊彈窗外部時關閉
+            modalOverlay.addEventListener("click", function(event) {
+                if (event.target === modalOverlay) {
+                    modalOverlay.style.display = "none";
+                }
+            });
         });
     </script>
 

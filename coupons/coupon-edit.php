@@ -167,6 +167,12 @@ $conn->close();
                                                             value="<?= date('Y-m-d', strtotime($row['endDate'])) ?>"></td>
                                                 </tr>
                                                 <tr>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">建立時間</th>
+                                                    <td><?= $row["created_at"] ?></td>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">最後更新時間</th>
+                                                    <td><?= $now ?></td>
+                                                </tr>
+                                                <tr>
                                                     <th class="text-center align-middle bg-gray-200 text-dark">狀態</th>
                                                     <td>
                                                         <div class="d-flex gap-3">
@@ -174,20 +180,18 @@ $conn->close();
                                                                 <input class="form-check-input p-1" type="radio" name="status" id="enabled" value="啟用" <?= ($row["status"] == "啟用") ? "checked" : "" ?>>
                                                                 <label class="form-check-label" for="enabled">啟用</label>
                                                             </div>
-
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input p-1" type="radio" name="status" id="disabled" value="停用" <?= ($row["status"] == "停用") ? "checked" : "" ?>>
                                                                 <label class="form-check-label" for="disabled">停用</label>
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark"></th>
+                                                    <td>
+                                                        </td>
                                                 </tr>
-                                                <tr>
-                                                    <th class="text-center align-middle bg-gray-200 text-dark">建立時間</th>
-                                                    <td><?= $row["created_at"] ?></td>
-                                                    <th class="text-center align-middle bg-gray-200 text-dark">最後更新時間</th>
-                                                    <td><?= $now ?></td>
-                                                </tr>
+
+                                                
                                             </tbody>
                                         </table>
 
