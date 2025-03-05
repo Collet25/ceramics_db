@@ -24,7 +24,7 @@
                 <div class="col-12 col-sm-12 col-md-10 col-lg-8">
                     <div class="card">
                         <!-- 優惠券標題欄 -->
-                        <div class="card-header border-bottom pb-0">
+                        <div class="card-header border-bottom pb-0 bg-gray-200">
                             <div class="row align-items-center g-2 pt-2">
                                 <div class="d-flex justify-content-between">
                                     <div class="mb-3">
