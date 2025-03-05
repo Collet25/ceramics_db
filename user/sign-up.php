@@ -33,6 +33,10 @@
       object-fit: cover;
       /* 圖片覆蓋但不變形 */
     }
+    .error-message {
+      color: red;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 
