@@ -8,10 +8,17 @@ if (isset($_GET['id'])) {
 
     $sql = "DELETE FROM exhibition WHERE id = $id";
     if (mysqli_query($conn, $sql)) {
-        echo "展覽已成功刪除！";
+        // 刪除成功，跳轉回展覽清單頁面並顯示刪除成功訊息
+        header("Location: exhibition-list.php?message=deleted");
+        exit();  // 確保腳本停止執行
     } else {
         echo "錯誤: " . mysqli_error($conn);
     }
+} else {
+    // 如果未提供 ID，跳回清單頁面
+    header("Location: exhibition-list.php?error=no_id");
+    exit();  // 確保腳本停止執行
 }
 ?>
+
 

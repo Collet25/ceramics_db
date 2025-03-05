@@ -1,6 +1,6 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once("../ceramics_db_connect.php");
 
 // 獲取篩選條件，預設為全部
@@ -56,7 +56,9 @@ $sql = "SELECT exhibition.*, exhibition_category.name AS category_name, GROUP_CO
         LEFT JOIN venue ON exhibition_venue.venue_id = venue.id
         $where_sql
         GROUP BY exhibition.id
+        ORDER BY exhibition.start_date DESC
         LIMIT $perPage OFFSET $offset";
+
 
 $result = mysqli_query($conn, $sql);
 ?>

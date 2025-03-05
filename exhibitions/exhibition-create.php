@@ -1,6 +1,7 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 require_once("../ceramics_db_connect.php");
 
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image = "";
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $imageTmpPath = $_FILES['image']['tmp_name'];
-        $imageName = $_FILES['image']['name'];
+        $imageName = uniqid() . "_" . $_FILES['image']['name'];
         $imagePath = "../uploads/exhibition/" . basename($imageName);
 
         if (is_writable("../uploads/exhibition/") && move_uploaded_file($imageTmpPath, $imagePath)) {
@@ -30,20 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "圖片上傳失敗，請檢查 uploads 目錄的寫入權限";
         }
     }
-    
 
     if ($category_id > 0 && !empty($title) && !empty($start_date) && !empty($end_date)) {
+        // 新增展覽資料
         $sql = "INSERT INTO exhibition (title, image, category_id, description, start_date, end_date, tag_id)
                 VALUES ('$title', '$image', $category_id, '$description', '$start_date', '$end_date', $tag_id)";
-
+        
         if ($conn->query($sql) === TRUE) {
-            $exhibition_id = $conn->insert_id;
+            $exhibition_id = $conn->insert_id; // 取得新增的展覽 ID
 
-            // 插入展覽與展覽廳的關聯
+            // 插入展覽與展覽廳的關聯，並自動新增預約資料
             if (!empty($venue_ids)) {
                 foreach ($venue_ids as $venue_id) {
                     $venue_id = (int)$venue_id;
+
+                    // 新增展覽與展覽廳的關聯
                     $conn->query("INSERT INTO exhibition_venue (exhibition_id, venue_id) VALUES ($exhibition_id, $venue_id)");
+
+                    // 自動新增預約資料
+                    $conn->query("INSERT INTO bookings (venue_id, exhibition_id, start_time, end_time, status)
+                                  VALUES ($venue_id, $exhibition_id, '$start_date', '$end_date', 'pending')");
                 }
             }
 
@@ -112,15 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">描述</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="venue_ids" class="form-label">選擇展覽廳 (可複選)</label>
-                    <select name="venue_ids[]" id="venue_ids" class="form-select" multiple required>
-                        <?php while ($venue = $venue_result->fetch_assoc()): ?>
-                            <option value="<?= $venue['id'] ?>"><?= htmlspecialchars($venue['name']) ?></option>
-                        <?php endwhile; ?>
+                    <label for="venue_ids">選擇展覽廳 (可多選)</label>
+                    <select name="venue_ids[]" id="venue_ids" class="form-select" multiple>
+                        <?php
+                        while ($venue = $venue_result->fetch_assoc()) {
+                            echo "<option value='{$venue['id']}'>{$venue['name']}</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="mb-3">
