@@ -34,22 +34,37 @@ $userCount = $result->num_rows;
     <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
     <title>查看優惠券</title>
     <style>
+        .leftSide {
+            font-family: "Kaisei Decol", serif;
+            background-image: linear-gradient( 101.3deg,  rgba(238,145,115,1) 11.3%, rgba(249,191,161,1) 89.2% );
+            /* background-image: linear-gradient(90deg, rgba(245, 212, 212, 1) 8.5%, rgba(252, 251, 224, 1) 80%); */
+            /* background-image: linear-gradient( 174.2deg,  rgba(255,244,228,1) 7.1%, rgba(240,246,238,1) 67.4% ); */
+            color: #222;
+            border-radius: 20px;
+            border-right: 10px dashed #fff;
+        }
 
         .detail-table {
-            
-            width: 100%;
-            margin: auto;
+            background: #fff;
+            font-family: "Kaisei Decol", serif;
+            width: 700px;
+            /* margin: auto; */
             /* max-width: 1000px; */
             border-collapse: collapse;
             font-size: 18px;
-            border: 1px dashed rgb(97, 85, 85);
-            background: #fff;
+            /* border: 1px dashed rgb(97, 85, 85); */
+
             padding-bottom: 10px;
+            border-radius: 10px;
+            /* border: 1px solid saddlebrown; */
+
+
         }
 
         .detail-table th,
         .detail-table td {
-            padding: 8px;
+            padding: 10px 10px 10px 18px;
+            /* border-bottom: 1px solid #555; */
         }
 
         .detail-table th {
@@ -59,54 +74,27 @@ $userCount = $result->num_rows;
             vertical-align: middle;
             display: table-cell;
             padding: 18px;
-
+            padding-left: 40px;
         }
 
         .detail-table td {
             white-space: nowrap;
             /* 防止文字換行 */
-            color: #555;
+            color: black;
+            text-align: start;
+            padding-right: 20px;
         }
+
 
         .detail-table td[colspan="4"] {
             font-weight: bold;
             color: #222;
         }
 
-        /* 遮罩背景 */
-        .modal-overlay {
-            display: none;
-            /* 預設隱藏 */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* 優惠券彈窗 */
-        .modal-coupon {
-            background: linear-gradient(70deg, #ff9a9e 0%, rgb(246, 200, 188) 50%, #fad07a 100%);
-            padding: 20px;
-            border-radius: 10px;
-            width: 400px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            font-family: "Kaisei Decol", serif;
-        }
-
-        /* 關閉按鈕 */
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
+        .all-set:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
     </style>
     <?php include("../css.php") ?>
@@ -120,92 +108,81 @@ $userCount = $result->num_rows;
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg grid">
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
-        <div class="d-flex justify-content-start align-items-center ms-6">
-            <a href="coupon.php" class="btn btn-outline-secondary">
+        <div class="d-flex justify-content-start align-items-center ms-6 ">
+            <a href="coupon.php" class="btn btn-outline-secondary bg-light">
                 <i class="bi bi-chevron-double-left fa-sm"></i>
             </a>
             <h5 class="mb-0 ms-2">優惠券查看</h5>
         </div>
         <hr>
-
-
-        <!-- 自訂彈窗 -->
-        <div class="modal-overlay" id="couponOverlay">
-            <div class="modal-coupon">
-                <span class="close-modal" id="closeModal">&times;</span>
-                <h3 class="text-dark"><?= $row["name"] ?></h3>
-                <h6>折扣碼：<?= $row["code"] ?></h6>
-                <h5><?= $row["categories"] ?>適用</h5>
-                <p id="discount" class="discount"><?= $row["discount"] ?></p>
-                <p>(全館滿$<?= $row["minSpend"] ?>元可折)</p>
-                <p class="expiry">有效期限：<?= $row["endDate"] ?></p>
-            </div>
-        </div>
-
-        <div class="col-lg-12 col-12 d-flex justify-content-center">
+        <div class="col-lg-12 col-12 d-flex justify-content-center ">
             <?php if ($userCount > 0): ?>
-                <div class="table-responsive p-5 card" style="width: 700px">
-                    <table class="detail-table py-4">
-                        <thead>
-                            <tr>
-                                <div class="d-flex justify-content-center mb-3">
-                                    <h4 class="text-center">詳細資訊 </h4>
-                                    <a class="text-decoration-none text-dark ps-2"
-                                        href="coupon-edit.php?id=<?= $row["id"] ?>" title="編輯" aria-label="編輯">
-                                        <i class="fa-solid fa-pen-to-square fa-fw"></i>
-                                    </a>
-                                </div>
-                            </tr>
-                        </thead>
-                        <tbody class="pb-5">
-                            <tr>
-                                <th>ID</th>
-                                <td><?= ($row["id"]) ?></td>
-                                <th>名稱</th>
-                                <td><?= ($row["name"]) ?></td>
-                            </tr>
-                            <tr>
-                                <th>折扣碼</th>
-                                <td><?= ($row["code"]) ?></td>
-                                <th>適用範圍</th>
-                                <td><?= ($row["categories"]) ?></td>
-                            </tr>
-                            <tr>
-                                <th>類型</th>
-                                <td id="discountType"><?= ($row["discountType"]) ?></td>
-                                <th>折扣</th>
-                                <td id="discount"><?= ($row["discount"]) ?></td>
-                            </tr>
-                            <tr>
-                                <th>低消金額</th>
-                                <td>$<?= ($row["minSpend"]) ?></td>
-                                <th>發行數量</th>
-                                <td><?= number_format($row["quantity"]) ?> 張</td>
-                            </tr>
-                            <tr>
-                                <th>有效日期</th>
-                                <td colspan="3"><?= htmlspecialchars($row["startDate"]) ?> ~ <?= htmlspecialchars($row["endDate"]) ?></td>
-                            </tr>
-                            <tr>
-                                <th>建立時間</th>
-                                <td><?= htmlspecialchars($row["created_at"]) ?></td>
-                                <th>狀態</th>
-                                <td><?php if ($row['status'] == '啟用'): ?>
-                                        <strong class="text-light bg-warning">啟用</span>
-                                        <?php else: ?>
-                                            <strong class="text-white bg-danger">停用</strong>
-                                        <?php endif; ?>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <th>檢視優惠券</th>
-                                <td>
-                                    <button class="btn btn-primary" id="openModal">預覽</button>
-                                </td>
-                            </tr> -->
-                        </tbody>
-                    </table>
+
+                <div class="p-5 d-flex flex-column justify-content-between leftSide shadow" style="width: 300px;">
+                    <div class="text-center">
+                        <h3>優惠券 #<?= ($row["id"]) ?></h3>
+                    </div>
+                    <div class="text-center">
+                        <a class="text-decoration-none text-dark px-2"
+                            href="coupon-edit.php?id=<?= $row["id"] ?>" title="編輯" aria-label="編輯">
+                            <i class="fa-solid fa-pen-to-square fa-fw"></i>
+                        </a>
+                    </div>
                 </div>
+                <table class="detail-table py-4 shadow all-set">
+                    <tbody class="pb-5">
+                        <tr>
+                            <th>名稱</th>
+                            <td>
+                                <div class="d-inline-block p-2"><?= ($row["name"]) ?></div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>折扣碼</th>
+                            <td><?= ($row["code"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>適用範圍</th>
+                            <td><?= ($row["categories"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>類型</th>
+                            <td id="discountType"><?= ($row["discountType"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>折扣</th>
+                            <td id="discount"><?= ($row["discount"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>低消金額</th>
+                            <td>$<?= ($row["minSpend"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>發行數量</th>
+                            <td><?= number_format($row["quantity"]) ?> 張</td>
+                        </tr>
+                        <tr>
+                            <th>有效日期</th>
+                            <td colspan="3"><?= htmlspecialchars($row["startDate"]) ?> ~ <?= htmlspecialchars($row["endDate"]) ?></td>
+                        </tr>
+                        <tr>
+                            <th>建立時間</th>
+                            <td><?= htmlspecialchars($row["created_at"]) ?></td>
+
+                        </tr>
+                        <tr>
+                            <th>狀態</th>
+                            <td><?php if ($row['status'] == '啟用'): ?>
+                                    <strong class="d-inline-block p-1 text-light bg-warning">啟用</strong>
+                                <?php else: ?>
+                                    <strong class="d-inline-block p-1 text-white bg-danger">停用</strong>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
         </div>
         </div>
 

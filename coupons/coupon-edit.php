@@ -61,6 +61,9 @@ $conn->close();
             overflow-y: auto;
             /* 允許滾動 */
         }
+        .header-bg{
+            background: #7B2D12;
+        }
     </style>
     <?php include("../css.php") ?>
 </head>
@@ -75,11 +78,11 @@ $conn->close();
         <!-- Navbar -->
         <?php include("../navbar.php") ?>
         <div class="container-fluid py-4 px-5">
-            <div class="row  d-flex justify-content-center">
+            <div class="row  d-flex justify-content-center ">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <!-- 優惠券標題欄 -->
-                        <div class="card-header border-bottom pb-0 ">
+                        <div class="card-head border-bottom pb-0 bg-gray-300">
                             <div class="row align-items-center g-2 pt-2">
                                 <div class="d-flex justify-content-between">
                                     <div class=" mb-3">
@@ -88,7 +91,7 @@ $conn->close();
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body mt-3">
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <?php if ($userCount > 0): ?>
                                     <form action="doUpdateCoupon.php" method="post">
@@ -98,7 +101,7 @@ $conn->close();
                                         <table class="table table-borderless " style="border-radius: 0px;">
                                             <tbody>
                                                 <tr>
-                                                    <th class="text-center align-middle bg-gray-200 text-dark">編號</th>
+                                                    <th class="text-center align-middle bg-gray-200 text-dark">ID</th>
                                                     <td><?= $row["id"] ?></td>
                                                     <th class="text-center align-middle bg-gray-200 text-dark">名稱</th>
                                                     <td>
