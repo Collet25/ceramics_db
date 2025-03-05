@@ -1,7 +1,4 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
+
 
 
 <?php
@@ -55,6 +52,8 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>場地列表</title>
     <?php include("../css.php"); ?>
     <?php include("../ev-css.php"); ?>
@@ -125,7 +124,7 @@ $result = $conn->query($sql);
                                     <a href="venue-handle-delete.php?id=<?= $row['id'] ?>" class="btn btn-warning">下架</a>
                                 </td>
                                 <td>
-                                    <?= $row['status'] == 1 ? '<span class="text-dark">上架</span>' : '<span class="text-dark">下架</span>' ?>
+                                    <?= $row['status'] == 1 ? '<span class="text-success">上架</span>' : '<span class="text-primary">下架</span>' ?>
                                 </td>
                                 <td>
                                     <a href="venue-handle-hard-delete.php?id=<?= $row['id'] ?>" class="btn btn-danger">刪除</a>

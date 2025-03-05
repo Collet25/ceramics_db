@@ -4,10 +4,22 @@ ini_set('display_errors', 1);
 require_once("../ceramics_db_connect.php");
 
 if (isset($_GET['id'])) {
-    $id = (int)$_GET['id'];
+    $id = intval($_GET['id']);
     $sql = "SELECT * FROM exhibition WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     $exhibition = mysqli_fetch_assoc($result);
+
+    if (!$exhibition) {  // 若找不到展覽
+        echo "找不到該展覽";
+        exit;
+    }
+
+    // 預先查詢分類與標籤
+    $category_result = $conn->query("SELECT * FROM exhibition_category");
+    $tag_result = $conn->query("SELECT * FROM tags");
+} else {
+    echo "未指定展覽 ID";
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,24 +27,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
     $end_date = mysqli_real_escape_string($conn, $_POST['end_date']);
-    $category_id = (int)$_POST['category_id'];  // ✅ 新增 category_id
-    $tag_id = (int)$_POST['tag_id'];
-    $image_sql = "";  // 用於儲存圖片更新的 SQL 字串
+    $category_id = intval($_POST['category_id']);
+    $tag_id = intval($_POST['tag_id']);
+    $image_sql = "";
 
-    // ✅ 處理圖片上傳
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $imageName = basename($_FILES['image']['name']);
-        $targetDir = "../exhibition/";  // 📌 統一圖片上傳目錄
+        $targetDir = "../uploads/exhibition/";
         $targetFile = $targetDir . $imageName;
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
-            $image_sql = ", image = '$targetFile'";  // 🔄 更新圖片路徑
+            $image_sql = ", image = '$imageName'";
         } else {
             echo "圖片上傳失敗";
         }
     }
 
-    // ✅ 更新資料庫，包括 category_id
     $sql = "UPDATE exhibition SET title = '$title', category_id = $category_id, description = '$description', 
             start_date = '$start_date', end_date = '$end_date', tag_id = $tag_id $image_sql WHERE id = $id";
     if (mysqli_query($conn, $sql)) {
@@ -50,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../logo-img/head-icon.png">
     <title>編輯展覽</title>
     <?php include("../css.php"); ?>
     <?php include("../ev-css.php"); ?>
@@ -60,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="main-content position-relative max-height-vh-100 border-radius-lg">
         <?php include("../navbar.php"); ?>
 
-        <div class="container-fluid">
+        <div class="container-fluid w-80 my-2">
             <h2>編輯展覽</h2>
             <form action="exhibition-edit.php?id=<?= $exhibition['id'] ?>" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
@@ -71,8 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="image" class="form-label">展覽圖片</label>
                     <input type="file" name="image" class="form-control" id="image">
                     <?php if (!empty($exhibition['image'])): ?>
-                        <img src="<?= $exhibition['image'] ?>" alt="展覽圖片" style="max-width: 200px; margin-top: 10px;">
+                        <p class="my-3">——— 目前圖片 ———</p>
+                        <img src="../uploads/exhibition/<?= htmlspecialchars($exhibition['image']) ?>" alt="展覽圖片" style="max-width: 500px;">
                     <?php endif; ?>
+
+
                 </div>
                 <div class="mb-3">
                     <label for="category_id" class="form-label">類別</label>
@@ -92,15 +107,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="description" class="form-label">描述</label>
                     <textarea name="description" class="form-control" id="description" required><?= htmlspecialchars($exhibition['description']) ?></textarea>
                 </div>
+                <label for="venue_ids">選擇展覽廳 (可多選)</label>
+                <select name="venue_ids[]" id="venue_ids" class="form-select" multiple>
+                    <?php
+                    $venueResult = $conn->query("SELECT * FROM venue WHERE status = 1");
+                    while ($venue = $venueResult->fetch_assoc()) {
+                        echo "<option value='{$venue['id']}'>{$venue['name']}</option>";
+                    }
+                    ?>
+                </select>
+
                 <div class="mb-3">
                     <label for="start_date" class="form-label">開始日期</label>
                     <input type="date" name="start_date" class="form-control" id="start_date"
-                           value="<?= substr($exhibition['start_date'], 0, 10) ?>" required>
+                        value="<?= substr($exhibition['start_date'], 0, 10) ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="end_date" class="form-label">結束日期</label>
                     <input type="date" name="end_date" class="form-control" id="end_date"
-                           value="<?= substr($exhibition['end_date'], 0, 10) ?>" required>
+                        value="<?= substr($exhibition['end_date'], 0, 10) ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="tag_id" class="form-label">標籤</label>
