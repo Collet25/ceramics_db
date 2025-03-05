@@ -147,10 +147,10 @@
                 <div class="collapse <?= ($activeMenu === 'exhibitionMenu') ? 'show' : '' ?>" id="exhibitionMenu">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-list.php') ? 'active' : '' ?>" href="../exhibition/exhibition-list.php">展覽列表</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-list.php') ? 'active' : '' ?>" href="../exhibitions/exhibition-list.php">展覽列表</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-create.php') ? 'active' : '' ?>" href="../exhibition/exhibition-create.php">新增展覽</a>
+                            <a class="nav-link text-center <?= ($currentPage === 'exhibition-create.php') ? 'active' : '' ?>" href="../exhibitions/exhibition-create.php">新增展覽</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="../exhibitions/exhibition-list.php">刪除展覽</a>
