@@ -33,7 +33,7 @@ if (isset($_GET["q"])) {
             break;
     }
 
-    $perPage = 6;
+    $perPage = 10;
     $startItem = ($P - 1) * $perPage;
     $totalPage = ceil($instructorCount / $perPage);
 
